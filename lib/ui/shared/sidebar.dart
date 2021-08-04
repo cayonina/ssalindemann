@@ -56,11 +56,10 @@ class Sidebar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.horarioRoute),
           ),
           MenuItem(
-            isActive:
-                sideMenuProvider.currentPage == Flurorouter.categoriesRoute,
+            isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
             text: 'Estudiantes',
             icon: Icons.layers_outlined,
-            onPressed: () => navigateTo(Flurorouter.categoriesRoute),
+            onPressed: () => navigateTo(Flurorouter.usersRoute),
           ),
           // MenuItem(
           //   text: 'Users',
@@ -71,18 +70,25 @@ class Sidebar extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          TextSeparator(text: 'Contactos'),
+          TextSeparator(text: 'Redes Sociales'),
           MenuItem(
             text: 'Facebook',
             icon: Icons.access_alarm,
             isActive: false,
             onPressed: () {},
           ),
+
           MenuItem(
             text: 'Gmail',
             icon: Icons.email_outlined,
             isActive: false,
             onPressed: () {},
+          ),
+          MenuItem(
+            text: 'Informacion',
+            icon: Icons.info,
+            isActive: sideMenuProvider.currentPage == Flurorouter.aboutRoute,
+            onPressed: () => navigateTo(Flurorouter.aboutRoute),
           ),
           SizedBox(
             height: 50,

@@ -1,6 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:ssalindemann/api/LindemannApi.dart';
 
 import 'package:ssalindemann/providers/providers.dart';
@@ -19,6 +21,7 @@ void main() async {
   await LocalStorage.configurePrefs();
   LindemannApi.configureDio();
   Flurorouter.configureRoutes();
+  Firebase.initializeApp();
   runApp(AppState());
 }
 

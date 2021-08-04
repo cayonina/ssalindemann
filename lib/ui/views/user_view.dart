@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:ssalindemann/models/user_model.dart';
 
 import 'package:ssalindemann/models/usuario.dart';
 
@@ -26,7 +27,7 @@ class UserView extends StatefulWidget {
 }
 
 class _UserViewState extends State<UserView> {
-  Usuario? user;
+  UserModel? user;
 
   @override
   void initState() {
@@ -79,7 +80,7 @@ class _UserViewState extends State<UserView> {
               ),
             ),
           if (user != null) _userViewBody(),
-          Text('${user?.nombre}')
+          Text('${user?.nombres}')
         ],
       ),
     );
@@ -126,13 +127,13 @@ class _UserViewForm extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                initialValue: user.nombre,
+                initialValue: user.nombres,
                 decoration: CustomInputs.formInputDecoration(
                     hint: 'Nombre de Estudiante',
                     label: 'Nombre',
                     icon: Icons.supervised_user_circle_outlined),
                 onChanged: (value) =>
-                    userFormProvider.copyUserWith(nombre: value),
+                    userFormProvider.copyUserWith(nombres: value),
                 validator: (value) {
                   if (value == null || value.isEmpty)
                     return 'Ingrese un nombre';
@@ -145,7 +146,7 @@ class _UserViewForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
-                initialValue: user.correo,
+                initialValue: user.email,
                 onChanged: (value) =>
                     userFormProvider.copyUserWith(correo: value),
                 decoration: CustomInputs.formInputDecoration(
@@ -283,20 +284,20 @@ class _AvatarContainer extends StatelessWidget {
                               allowMultiple: false,
                             );
 
-                            if (result != null) {
-                              // PlatformFile file = result.files.first;
-                              NotificationsService.showBusyIndicator(context);
-                              final newUser =
-                                  await userFormProvider.uploadImage(
-                                      '/uploads/usuarios/${user.uid}',
-                                      result.files.first.bytes!);
+                            // if (result != null) {
+                            //   // PlatformFile file = result.files.first;
+                            //   NotificationsService.showBusyIndicator(context);
+                            //   final newUser =
+                            //       await userFormProvider.uploadImage(
+                            //           '/uploads/usuarios/${user.id}',
+                            //           result.files.first.bytes!);
 
-                              Provider.of<UsersProvider>(context, listen: false)
-                                  .refreshUser(newUser);
-                              Navigator.of(context).pop();
-                            } else {
-                              // User canceled the picker
-                            }
+                            //   Provider.of<UsersProvider>(context, listen: false)
+                            //       .refreshUser(newUser);
+                            //   Navigator.of(context).pop();
+                            // } else {
+                            //   // User canceled the picker
+                            // }
                           },
                         ),
                       ),
@@ -308,7 +309,7 @@ class _AvatarContainer extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                user.nombre,
+                user.nombres!,
                 style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],

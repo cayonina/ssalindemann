@@ -2,10 +2,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:ssalindemann/api/LindemannApi.dart';
+import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/models/usuario.dart';
 
 class UserFormProvider extends ChangeNotifier {
-  Usuario? user;
+  UserModel? user;
   late GlobalKey<FormState> formKey;
 
   // hacer pensar como actualizar usuario del provider
@@ -16,20 +17,28 @@ class UserFormProvider extends ChangeNotifier {
 
   copyUserWith({
     String? rol,
-    bool? estado,
-    bool? google,
-    String? nombre,
+    String? apellidos,
+    String? password,
+    String? nombres,
+    String? direccion,
+    String? curso,
     String? correo,
     String? uid,
     String? img,
+    String? celular,
+    int? edad,
   }) {
-    user = new Usuario(
-      rol: rol ?? this.user!.rol,
-      estado: estado ?? this.user!.estado,
-      google: google ?? this.user!.google,
-      nombre: nombre ?? this.user!.nombre,
-      correo: correo ?? this.user!.correo,
-      uid: uid ?? this.user!.uid,
+    user = new UserModel(
+      role: rol ?? this.user!.role,
+      apellidos: apellidos ?? this.user!.apellidos,
+      password: password ?? this.user!.password,
+      nombres: nombres ?? this.user!.nombres,
+      email: correo ?? this.user!.email,
+      celular: celular ?? this.user!.celular,
+      direccion: direccion ?? this.user!.direccion,
+      curso: curso ?? this.user!.curso,
+      edad: edad ?? this.user!.edad,
+      id: uid ?? this.user!.id,
       img: img ?? this.user!.img,
     );
     notifyListeners();
@@ -42,9 +51,9 @@ class UserFormProvider extends ChangeNotifier {
   updateUser() async {
     if (!this._validForm()) return false;
 
-    final data = {'nombre': user!.nombre, 'correo': user!.correo};
+    final data = {'nombre': user!.nombres, 'correo': user!.email};
     try {
-      final resp = await LindemannApi.put('/usuarios/${user!.uid}', data);
+      final resp = await LindemannApi.put('/usuarios/${user!.id}', data);
       print(resp);
       return true;
     } catch (e) {
@@ -53,15 +62,15 @@ class UserFormProvider extends ChangeNotifier {
     }
   }
 
-  Future<Usuario> uploadImage(String path, Uint8List bytes) async {
-    try {
-      final resp = await LindemannApi.uploadFile(path, bytes);
-      user = Usuario.fromMap(resp);
-      notifyListeners();
-      return user!;
-    } catch (e) {
-      print(e);
-      throw 'Error en user from provider';
-    }
-  }
+  // Future<Usuario> uploadImage(String path, Uint8List bytes) async {
+  //   try {
+  //     final resp = await LindemannApi.uploadFile(path, bytes);
+  //     user = Usuario.fromMap(resp);
+  //     notifyListeners();
+  //     return user!;
+  //   } catch (e) {
+  //     print(e);
+  //     throw 'Error en user from provider';
+  //   }
+  // }
 }

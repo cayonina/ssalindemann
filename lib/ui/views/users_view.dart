@@ -23,42 +23,56 @@ class UsersView extends StatelessWidget {
             style: CustomLabels.h1,
           ),
           Text(
-            'Primero A',
+            'Estudiantes Primero A',
             style: CustomLabels.h2,
           ),
           SizedBox(
             height: 10,
           ),
           PaginatedDataTable(
+            header: Container(),
+
             sortAscending: usersProvider.ascending,
             sortColumnIndex: usersProvider.sortColumnIndex,
-            // actions: [
-            //   CustomIconButton(
-            //       onPressed: () {},
-            //       text: 'Crear nueva Categoria',
-            //       icon: Icons.add_outlined),
-            // ],
+            actions: [
+              CustomIconButton(
+                  onPressed: () {},
+                  text: 'Añadir nuevo Estudiante',
+                  icon: Icons.add_outlined),
+            ],
             columns: [
-              DataColumn(label: Text('Avatar')),
+              DataColumn(label: Text('Foto')),
               DataColumn(
-                  label: Text('Nombre'),
+                  label: Text('Apellidos'),
                   onSort: (colIndex, _) {
                     usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.nombre);
+                    usersProvider.sort<String>((user) => user.apellidos!);
                   }),
               DataColumn(
-                  label: Text('Email'),
+                  label: Text('Nombres'),
                   onSort: (colIndex, _) {
                     usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.correo);
+                    usersProvider.sort<String>((user) => user.nombres!);
                   }),
-              DataColumn(label: Text('UID')),
+              DataColumn(
+                  label: Text('Curso'),
+                  onSort: (colIndex, _) {
+                    usersProvider.sortColumnIndex = colIndex;
+                    usersProvider.sort<String>((user) => user.curso!);
+                  }),
+              DataColumn(
+                  label: Text('Celulares'),
+                  onSort: (colIndex, _) {
+                    usersProvider.sortColumnIndex = colIndex;
+                    usersProvider.sort<String>((user) => user.celular!);
+                  }),
               DataColumn(label: Text('Acciones')),
             ],
-            source: usersDatSource,
+            // source: usersDatSource,
             onPageChanged: (page) {
               print('page $page');
             },
+            source: usersDatSource,
           )
         ],
       ),

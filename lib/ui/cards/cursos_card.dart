@@ -7,7 +7,7 @@ class CursosCard extends StatelessWidget {
   final Widget child;
   final double? width;
   final Color color;
-  final Function? onPressed;
+  final VoidCallback? onPressed;
   const CursosCard(
       {Key? key,
       this.title,
@@ -19,26 +19,29 @@ class CursosCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width != null ? width : null,
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(10),
-      decoration: buildBoxDecoration(color),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (title != null) ...[
-            FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                title!,
-                style: GoogleFonts.raleway(fontSize: 20, color: Colors.white),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: width != null ? width : null,
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(10),
+        decoration: buildBoxDecoration(color),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (title != null) ...[
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  title!,
+                  style: GoogleFonts.raleway(fontSize: 20, color: Colors.white),
+                ),
               ),
-            ),
-            Divider(),
+              Divider(),
+            ],
+            child,
           ],
-          child,
-        ],
+        ),
       ),
     );
   }

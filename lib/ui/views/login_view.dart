@@ -36,11 +36,11 @@ class LoginView extends StatelessWidget {
                         TextFormField(
                           onFieldSubmitted: (_) =>
                               onFormSubmit(loginFormProvider, authProvider),
-                          validator: (value) {
-                            if (!EmailValidator.validate(value ?? ''))
-                              return 'Usuario no valido';
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (!EmailValidator.validate(value ?? ''))
+                          //     return 'Usuario no valido';
+                          //   return null;
+                          // },
                           onChanged: (value) =>
                               loginFormProvider.usuario = value,
                           style: TextStyle(color: Colors.white),

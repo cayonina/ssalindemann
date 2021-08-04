@@ -36,8 +36,8 @@ class CursosView extends StatelessWidget {
             direction: Axis.horizontal,
             children: [
               CursosCard(
-                onPressed: () => navigateTo(Flurorouter.usersRoute),
                 title: 'Primero A',
+                onPressed: () => navigateTo(Flurorouter.usersRoute),
                 child: Center(
                     child: Text(
                   '1ro. "A"',
@@ -419,6 +419,9 @@ class CursosView extends StatelessWidget {
                 color: Colors.brown.shade500,
               ),
               CursosCard(
+                onPressed: () {
+                  print('click en 6to E');
+                },
                 title: 'Sexto E',
                 child: Center(
                     child: Text(
@@ -431,10 +434,6 @@ class CursosView extends StatelessWidget {
                 width: 170,
                 color: Colors.brown.shade500,
               ),
-              LinkText(
-                text: 'ingresa',
-                onPressed: () => navigateTo(Flurorouter.usersRoute),
-              )
             ],
           )
         ],

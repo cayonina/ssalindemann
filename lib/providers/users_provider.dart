@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ssalindemann/api/LindemannApi.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
+import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/models/usuario.dart';
 
 class UsersProvider extends ChangeNotifier {
-  List<Usuario> users = [];
+  List<UserModel> users = [];
   bool isLoading = true;
   bool ascending = true;
   int? sortColumnIndex;
@@ -14,14 +15,15 @@ class UsersProvider extends ChangeNotifier {
 
   getPaginatedUsers() async {
     // peticion http
-    final resp = await LindemannApi.httpGet('/usuarios?limite=100&desde=0');
-    final usersResponse = UsersResponse.fromMap(resp);
-    this.users = [...usersResponse.usuarios];
+    final resp = await LindemannApi.httpGetEstudiante();
+    print(resp);
+    this.users = [...resp];
+    print(this.users.length);
     isLoading = false;
     notifyListeners();
   }
 
-  void sort<T>(Comparable<T> Function(Usuario user) getField) {
+  void sort<T>(Comparable<T> Function(UserModel user) getField) {
     users.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
@@ -36,22 +38,22 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Usuario?> getUserById(String uid) async {
+  Future<UserModel?> getUserById(String uid) async {
     // peticion http
 
     try {
-      final resp = await LindemannApi.httpGet('/usuarios/$uid');
-      final user = Usuario.fromMap(resp);
-      return user;
+      final resp = await LindemannApi.httpGetUserbyId(uid);
+
+      return resp;
     } catch (e) {
       print(e);
       return null;
     }
   }
 
-  void refreshUser(Usuario newUser) {
+  void refreshUser(UserModel newUser) {
     this.users = this.users.map((user) {
-      if (user.uid == newUser.uid) {
+      if (user.id == newUser.id) {
         user = newUser;
       }
       return user;

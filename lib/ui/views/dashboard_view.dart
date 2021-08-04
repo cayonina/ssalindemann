@@ -21,7 +21,7 @@ class DashboardView extends StatelessWidget {
             height: 10,
           ),
           WhiteCard(
-              title: 'Bienvenido ' + user.nombre,
+              title: 'Bienvenido ' + user.nombres!,
               child: Container(
                 child: Image(image: AssetImage('canchapor.png')),
               )),
