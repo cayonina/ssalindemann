@@ -30,6 +30,7 @@ class AuthProvider extends ChangeNotifier {
       authStatus = AuthStatus.authenticated;
       // LocalStorage.prefs.setString('token', authResponse.token);
       // aqui manda al dasboard
+      if (user != null) saveUserToLocalStorage(user);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
       // LindemannApi.configureDio();
       notifyListeners();
@@ -42,13 +43,16 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> isAuthenticated() async {
-    final token = LocalStorage.prefs.getString('token');
-    if (token == null) {
+    final localUser = await LocalStorage.getUserModel();
+    if (localUser == null) {
       authStatus = AuthStatus.notAuthenticated;
       notifyListeners();
       return false;
     } else {
-      return false;
+      user = localUser;
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
     }
     // todo ir al backend y comprobar si el JWT es valido
 
@@ -99,5 +103,13 @@ class AuthProvider extends ChangeNotifier {
     LocalStorage.prefs.remove('token');
     authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
+  }
+
+  Future saveUserToLocalStorage(UserModel user) async {
+    print('==== USER TO LOCAL ===== ${user.toJson()} ===');
+    await LocalStorage.saveUserModel(user);
+    final userFromLocalStorage = await LocalStorage.getUserModel();
+
+    print('==== USER FROM LOCAL ===== ${userFromLocalStorage?.toJson()} ===');
   }
 }

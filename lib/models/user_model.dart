@@ -38,4 +38,18 @@ class UserModel {
         direccion: json['direccion'],
         img: json['img'],
       );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'rol': role,
+        'apellido': apellidos,
+        'nombre': nombres,
+        'correo': email,
+        'edad': edad,
+        'password': password,
+        'celular': celular,
+        'curso': curso,
+        'direccion': direccion,
+        'img': img,
+      };
 }
