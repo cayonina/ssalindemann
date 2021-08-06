@@ -26,7 +26,7 @@ class ProfesoresView extends StatelessWidget {
             direction: Axis.horizontal,
             children: [
               AreasCard(
-                title: 'Lenguaje y Comunicaciones',
+                title: 'Literatura',
                 child: Center(
                   child: Center(
                       child: Icon(
@@ -38,7 +38,7 @@ class ProfesoresView extends StatelessWidget {
                 color: Colors.orange.shade700,
               ),
               AreasCard(
-                title: 'Ciencias Exactas',
+                title: 'Matemáticas y Técnica',
                 child: Center(
                   child: Center(
                       child: Icon(
@@ -62,7 +62,7 @@ class ProfesoresView extends StatelessWidget {
                 color: Colors.green.shade700,
               ),
               AreasCard(
-                title: 'Ciencias Sociales',
+                title: 'Sociales',
                 child: Center(
                   child: Center(
                       child: Icon(
@@ -74,11 +74,11 @@ class ProfesoresView extends StatelessWidget {
                 color: Colors.purple.shade700,
               ),
               AreasCard(
-                title: 'Tecnologia',
+                title: 'Cosmovision y Psicología',
                 child: Center(
                   child: Center(
                       child: Icon(
-                    Icons.computer_outlined,
+                    Icons.psychology_outlined,
                     color: Colors.white,
                   )),
                 ),
@@ -86,11 +86,11 @@ class ProfesoresView extends StatelessWidget {
                 color: Colors.blue.shade700,
               ),
               AreasCard(
-                title: 'Extracurriculares',
+                title: 'Artes y Educación Física',
                 child: Center(
                   child: Center(
                       child: Icon(
-                    Icons.sports_soccer_outlined,
+                    Icons.art_track_outlined,
                     color: Colors.white,
                   )),
                 ),

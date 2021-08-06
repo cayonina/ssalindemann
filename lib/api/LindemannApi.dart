@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:ssalindemann/models/http/users_response.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/services/local_storage.dart';
 import 'package:ssalindemann/services/notifications_service.dart';
@@ -120,6 +121,7 @@ class LindemannApi {
     }
 
     if (userResponse != null) {
+      print(userResponse.data()['rol']);
       return UserModel.fromJson(userResponse.id, userResponse.data());
     } else {
       NotificationsService.showSnackbarError('Usuario/ Password no validos');
@@ -149,6 +151,29 @@ class LindemannApi {
       print(e);
       throw ('Error en el DELETE');
     }
+  }
+
+  static Future deleteEstudiante(String id) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    final respStudent = await studentsRef
+        .doc(id)
+        .delete()
+        .then((value) => print("Estudiante Eliminado"))
+        .catchError((error) => print("Fallo al borrar $error"));
+
+    // CollectionReference usuario =
+    //     FirebaseFirestore.instance.collection('usuarios');
+
+    // Future<void> deleteUser() {
+    //   return usuario
+    //       .doc(id)
+    //       .delete()
+    //       .then((value) => print("Estudiante Deleted"))
+    //       .catchError((error) => print("Fallo al borrar $error"));
+    // }
   }
 
   static Future uploadFile(String path, Uint8List bytes) async {

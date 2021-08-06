@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ssalindemann/models/category.dart';
 import 'package:ssalindemann/models/user_model.dart';
-import 'package:ssalindemann/models/usuario.dart';
-import 'package:ssalindemann/providers/categories_provider.dart';
+import 'package:ssalindemann/providers/providers.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
-import 'package:ssalindemann/ui/modals/category_modal.dart';
 
 class UsersDataSource extends DataTableSource {
   final List<UserModel> users;
-
-  UsersDataSource(this.users);
+  final BuildContext context;
+  UsersDataSource(this.users, this.context);
 
   @override
   DataRow getRow(int index) {
@@ -29,22 +26,59 @@ class UsersDataSource extends DataTableSource {
             height: 35,
           );
 
-    return DataRow.byIndex(index: index, cells: [
-      DataCell(ClipOval(
-        child: image,
-      )),
-      DataCell(Text(user.apellidos!)),
-      DataCell(Text(user.nombres!)),
-      DataCell(Text(user.curso!)),
-      DataCell(Text(user.celular!)),
-      DataCell(IconButton(
-        icon: Icon(Icons.edit_outlined),
-        onPressed: () {
-          // todo navegar a una nueva pantalla con la información del usuario
-          NavigationService.replaceTo('/dashboard/users/${user.id}');
-        },
-      )),
-    ]);
+    return DataRow.byIndex(
+      index: index,
+      cells: [
+        DataCell(ClipOval(
+          child: image,
+        )),
+        DataCell(Text(user.apellidos!)),
+        DataCell(Text(user.nombres!)),
+        DataCell(Text(user.curso!)),
+        DataCell(Text(user.celular!)),
+        DataCell(
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.edit_outlined),
+                onPressed: () {
+                  // todo navegar a una nueva pantalla con la información del usuario
+                  NavigationService.replaceTo('/dashboard/users/${user.id}');
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.delete_outlined,
+                  color: Colors.red.withOpacity(0.8),
+                ),
+                onPressed: () {
+                  final dialog = AlertDialog(
+                    title: Text('¿Esta seguro de borrarlo?'),
+                    content: Text('¿Borrar Definitivamente ${user.nombres}?'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('No')),
+                      TextButton(
+                          onPressed: () async {
+                            await Provider.of<UsersProvider>(context,
+                                    listen: false)
+                                .deleteEstudiante(user.id!);
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Si, borrar')),
+                    ],
+                  );
+                  showDialog(context: context, builder: (_) => dialog);
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override

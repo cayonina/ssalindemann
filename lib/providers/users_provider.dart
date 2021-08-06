@@ -61,4 +61,15 @@ class UsersProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future deleteEstudiante(String id) async {
+    try {
+      await LindemannApi.deleteEstudiante(id);
+      users.removeWhere((user) => user.id == id);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      throw 'error al eliminar estudiantee';
+    }
+  }
 }

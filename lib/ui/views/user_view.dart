@@ -65,7 +65,7 @@ class _UserViewState extends State<UserView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-            'Añadir Estudiante',
+            'Datos del Estudiante',
             style: CustomLabels.h1,
           ),
           SizedBox(
@@ -146,6 +146,25 @@ class _UserViewForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                initialValue: user.apellidos,
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(apellidos: value),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Apellidos del Estudiante',
+                    label: 'Apellidos',
+                    icon: Icons.supervised_user_circle_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese un apellido';
+                  if (value.length < 2)
+                    return 'Apellido debe de ser mas de dos caracteres';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
                 initialValue: user.email,
                 onChanged: (value) =>
                     userFormProvider.copyUserWith(correo: value),
@@ -154,8 +173,10 @@ class _UserViewForm extends StatelessWidget {
                     label: 'Correo',
                     icon: Icons.mark_email_read_outlined),
                 validator: (value) {
-                  if (!EmailValidator.validate(value ?? ''))
-                    return 'Usuario o email no valido';
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese un correo usuario';
+                  if (value.length < 2)
+                    return 'usuario debe de ser mas de dos caracteres ';
                   return null;
                 },
               ),
@@ -163,33 +184,93 @@ class _UserViewForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                initialValue: user.password,
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(password: value),
                 decoration: CustomInputs.formInputDecoration(
                     hint: 'Contraseña',
                     label: 'Contraseña',
-                    icon: Icons.block_outlined),
+                    icon: Icons.lock_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese una contraseña';
+                  if (value.length < 6)
+                    return 'contraseña debe ser mas de 6 caracteres';
+                  return null;
+                },
               ),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
+                initialValue: user.edad.toString(),
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(edad: int.parse(value)),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Edad',
+                    label: 'Edad',
+                    icon: Icons.calendar_today_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Ingrese su edad';
+                  if (value.length < 2)
+                    return 'Su edad es tiene mas de 2 digitos';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                initialValue: user.celular,
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(celular: value),
                 decoration: CustomInputs.formInputDecoration(
                     hint: 'Telefono o Celular',
-                    label: 'Telefono o Celular',
-                    icon: Icons.phone_android_outlined),
+                    label: 'Celular',
+                    icon: Icons.phone_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese un numero de celular propio o de referencia';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                initialValue: user.direccion,
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(direccion: value),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Direccion de su casa',
+                    label: 'Direccion',
+                    icon: Icons.map_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese una direccion de referencia';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DropdownButton<String>(
+                items: <String>['1A', '1B', '1C', '1D'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+                onChanged: (_) {},
               ),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
                 decoration: CustomInputs.formInputDecoration(
-                    hint: 'Area', label: 'Area', icon: Icons.apps_rounded),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: CustomInputs.formInputDecoration(
-                    hint: 'RUDE', label: 'Rude', icon: Icons.block_outlined),
+                    hint: 'CI',
+                    label: 'CI',
+                    icon: Icons.perm_identity_outlined),
               ),
               SizedBox(
                 height: 20,

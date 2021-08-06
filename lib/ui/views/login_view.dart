@@ -86,13 +86,13 @@ class LoginView extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        LinkText(
-                          text: 'Nueva Cuenta',
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Flurorouter.registerRoute);
-                          },
-                        )
+                        // LinkText(
+                        //   text: 'Nueva Cuenta',
+                        //   onPressed: () {
+                        //     Navigator.pushReplacementNamed(
+                        //         context, Flurorouter.registerRoute);
+                        //   },
+                        // )
                       ],
                     )),
               ),

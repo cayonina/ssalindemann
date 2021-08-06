@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ssalindemann/datatables/users_datasource.dart';
 import 'package:ssalindemann/providers/users_provider.dart';
+import 'package:ssalindemann/router/router.dart';
 import 'package:ssalindemann/ui/buttons/custom_icon_button.dart';
 
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
@@ -11,7 +12,7 @@ class UsersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usersProvider = Provider.of<UsersProvider>(context);
-    final usersDatSource = new UsersDataSource(usersProvider.users);
+    final usersDatSource = new UsersDataSource(usersProvider.users, context);
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -36,7 +37,9 @@ class UsersView extends StatelessWidget {
             sortColumnIndex: usersProvider.sortColumnIndex,
             actions: [
               CustomIconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Flurorouter.usersRoute);
+                  },
                   text: 'Añadir nuevo Estudiante',
                   icon: Icons.add_outlined),
             ],
