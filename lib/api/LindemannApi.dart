@@ -58,6 +58,20 @@ class LindemannApi {
     );
   }
 
+  static Future<List<UserModel>> httpGetProfesor() async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    final respStudent = await profesorRef.get();
+    print(respStudent.docs);
+    return List.from(
+      respStudent.docs.map(
+        (document) => UserModel.fromJson(document.id, document.data()),
+      ),
+    );
+  }
+
   static Future<UserModel> httpGetUserbyId(String id) async {
     print(id);
     final firebase =

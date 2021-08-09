@@ -36,6 +36,7 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
         ChangeNotifierProvider(create: (_) => UsersProvider()),
+        ChangeNotifierProvider(create: (_) => ProfesorProvider()),
         ChangeNotifierProvider(create: (_) => UserFormProvider()),
       ],
       child: MyApp(),

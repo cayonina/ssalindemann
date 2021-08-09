@@ -22,6 +22,7 @@ class Flurorouter {
   static String categoriesRoute = '/dashboard/categories';
   static String usersRoute = '/dashboard/users';
   static String userRoute = '/dashboard/users/:uid';
+  static String profesorRoute = '/dashboard/profesor';
   static String horarioRoute = '/dashboard/horario';
 
   static String aboutRoute = '/about';
@@ -55,6 +56,9 @@ class Flurorouter {
         handler: DashboardHandlers.user, transitionType: TransitionType.fadeIn);
     router.define(horarioRoute,
         handler: DashboardHandlers.horario,
+        transitionType: TransitionType.fadeIn);
+    router.define(profesorRoute,
+        handler: DashboardHandlers.profesor,
         transitionType: TransitionType.fadeIn);
 
     router.define(aboutRoute,

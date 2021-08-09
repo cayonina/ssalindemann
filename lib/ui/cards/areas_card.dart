@@ -5,37 +5,42 @@ class AreasCard extends StatelessWidget {
   final String? title;
   final Widget child;
   final double? width;
+  final VoidCallback? onPressed;
   final Color color;
   const AreasCard(
       {Key? key,
       this.title,
       required this.child,
       this.width,
-      required this.color})
+      required this.color,
+      this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width != null ? width : null,
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(10),
-      decoration: buildBoxDecoration(color),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (title != null) ...[
-            FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                title!,
-                style: GoogleFonts.raleway(fontSize: 16, color: Colors.white),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: width != null ? width : null,
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(10),
+        decoration: buildBoxDecoration(color),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (title != null) ...[
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  title!,
+                  style: GoogleFonts.raleway(fontSize: 16, color: Colors.white),
+                ),
               ),
-            ),
-            Divider(),
+              Divider(),
+            ],
+            child
           ],
-          child
-        ],
+        ),
       ),
     );
   }

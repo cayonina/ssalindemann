@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ssalindemann/providers/sidemenu_provider.dart';
+import 'package:ssalindemann/router/router.dart';
+import 'package:ssalindemann/services/navigation_services.dart';
 import 'package:ssalindemann/ui/cards/areas_card.dart';
-import 'package:ssalindemann/ui/cards/cursos_card.dart';
-
-import 'package:ssalindemann/ui/cards/white_cards.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
 
 // esta es la base de una nueva vista del panel administrativo
 class ProfesoresView extends StatelessWidget {
+  void navigateTo(String routeName) {
+    NavigationService.replaceTo(routeName);
+    SideMenuProvider.closeMenu();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +32,10 @@ class ProfesoresView extends StatelessWidget {
             children: [
               AreasCard(
                 title: 'Literatura',
+                onPressed: () {
+                  print('click en literatura');
+                  navigateTo(Flurorouter.profesorRoute);
+                },
                 child: Center(
                   child: Center(
                       child: Icon(
@@ -46,6 +55,9 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  navigateTo(Flurorouter.profesorRoute);
+                },
                 width: 220,
                 color: Colors.red.shade700,
               ),

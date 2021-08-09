@@ -10,6 +10,8 @@ class UserModel {
     required this.celular,
     required this.direccion,
     required this.curso,
+    required this.horario_atencion,
+    required this.area,
     this.img,
   });
 
@@ -24,6 +26,8 @@ class UserModel {
   final String? curso;
   final String? direccion;
   final String? img;
+  final String? horario_atencion;
+  final String? area;
 
   factory UserModel.fromJson(String id, Map<String, dynamic> json) => UserModel(
         id: id,
@@ -37,6 +41,8 @@ class UserModel {
         curso: json['curso'],
         direccion: json['direccion'],
         img: json['img'],
+        horario_atencion: json['horario_atencion'],
+        area: json['area'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,6 +56,8 @@ class UserModel {
         'celular': celular,
         'curso': curso,
         'direccion': direccion,
+        'horario_atencion': horario_atencion,
+        'area': area,
         'img': img,
       };
 }

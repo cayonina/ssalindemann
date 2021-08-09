@@ -26,6 +26,8 @@ class UserFormProvider extends ChangeNotifier {
     String? uid,
     String? img,
     String? celular,
+    String? horario_atencion,
+    String? area,
     int? edad,
   }) {
     user = new UserModel(
@@ -40,6 +42,8 @@ class UserFormProvider extends ChangeNotifier {
       edad: edad ?? this.user!.edad,
       id: uid ?? this.user!.id,
       img: img ?? this.user!.img,
+      horario_atencion: horario_atencion ?? this.user!.horario_atencion,
+      area: area ?? this.user!.area,
     );
     notifyListeners();
   }

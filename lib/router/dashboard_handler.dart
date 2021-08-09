@@ -9,6 +9,7 @@ import 'package:ssalindemann/ui/views/dashboard_view.dart';
 import 'package:ssalindemann/ui/views/horario_view.dart';
 import 'package:ssalindemann/ui/views/login_view.dart';
 import 'package:ssalindemann/ui/views/profesores_view.dart';
+import 'package:ssalindemann/ui/views/tabla_profesores_view.dart';
 import 'package:ssalindemann/ui/views/user_view.dart';
 import 'package:ssalindemann/ui/views/users_view.dart';
 
@@ -70,6 +71,15 @@ class DashboardHandlers {
         .setCurrenPageUrl(Flurorouter.usersRoute);
     if (authProvider.authStatus == AuthStatus.authenticated)
       return UsersView();
+    else
+      return LoginView();
+  });
+  static Handler profesor = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.profesorRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return TablaProfesoresView();
     else
       return LoginView();
   });

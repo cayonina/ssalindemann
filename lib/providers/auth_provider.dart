@@ -54,50 +54,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     }
-    // todo ir al backend y comprobar si el JWT es valido
-
-    // try {
-    //   final resp = await LindemannApi.httpGet('/auth');
-    //   final authResponse = AuthResponse.fromMap(resp);
-    //   LocalStorage.prefs.setString('token', authResponse.token);
-    //   this.user = authResponse.usuario;
-    //   authStatus = AuthStatus.authenticated;
-    //   notifyListeners();
-    //   return true;
-    // } catch (e) {
-    //   print(e);
-    //   authStatus = AuthStatus.notAuthenticated;
-    //   notifyListeners();
-    //   return false;
-    // }
   }
-
-  // register(String usuario, String password, String name) {
-  //   // TODO peticion HTTP
-  //   final data = {
-  //     'nombre': name,
-  //     'correo': usuario,
-  //     'password': password,
-  //   };
-
-  //   LindemannApi.post('/usuarios', data).then((json) {
-  //     print(json);
-  //     final authResponse = new AuthResponse.fromMap(json);
-  //     this.user = authResponse.usuario;
-
-  //     authStatus = AuthStatus.authenticated;
-  //     LocalStorage.prefs.setString('token', authResponse.token);
-  //     // aqui manda al dasboard
-  //     NavigationService.replaceTo(Flurorouter.dashboardRoute);
-  //     LindemannApi.configureDio();
-  //     notifyListeners();
-  //   }).catchError((e) {
-  //     print('error en: $e');
-  //     // mostrar notificacion error
-  //     NotificationsService.showSnackbarError('Usuario / Password no válidos');
-  //   });
-  //   // TODO navegar al dashboard
-  // }
 
   logout() {
     LocalStorage.prefs.remove('token');

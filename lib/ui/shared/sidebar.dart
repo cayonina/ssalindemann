@@ -29,7 +29,7 @@ class Sidebar extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          TextSeparator(text: 'main'),
+          TextSeparator(text: 'Main'),
           MenuItem(
               isActive:
                   sideMenuProvider.currentPage == Flurorouter.dashboardRoute,
@@ -60,6 +60,12 @@ class Sidebar extends StatelessWidget {
             text: 'Estudiantes',
             icon: Icons.layers_outlined,
             onPressed: () => navigateTo(Flurorouter.usersRoute),
+          ),
+          MenuItem(
+            isActive: sideMenuProvider.currentPage == Flurorouter.profesorRoute,
+            text: 'Profesor',
+            icon: Icons.layers_outlined,
+            onPressed: () => navigateTo(Flurorouter.profesorRoute),
           ),
           // MenuItem(
           //   text: 'Users',
