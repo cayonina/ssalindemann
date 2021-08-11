@@ -10,12 +10,20 @@ import 'package:ssalindemann/ui/buttons/custom_icon_button.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
 
 // esta es la base de una nueva vista del panel administrativo
-class TablaProfesoresView extends StatelessWidget {
+class TablaProfesoresView extends StatefulWidget {
+  final String area;
+
+  const TablaProfesoresView({Key? key, required this.area}) : super(key: key);
+  @override
+  _TablaProfesoresViewState createState() => _TablaProfesoresViewState();
+}
+
+class _TablaProfesoresViewState extends State<TablaProfesoresView> {
   @override
   Widget build(BuildContext context) {
     final profesorProvider = Provider.of<ProfesorProvider>(context);
     final profesorDataSource =
-        new ProfesorDataSource(profesorProvider.users, context);
+        new ProfesorDataSource(profesorProvider.users, context, widget.area);
     print('LLega la ventana tabla');
 
     return Container(
@@ -28,7 +36,7 @@ class TablaProfesoresView extends StatelessWidget {
             style: CustomLabels.h1,
           ),
           Text(
-            'Area Matematicas',
+            widget.area,
             style: CustomLabels.h2,
           ),
           SizedBox(
@@ -42,7 +50,7 @@ class TablaProfesoresView extends StatelessWidget {
             actions: [
               CustomIconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Flurorouter.usersRoute);
+                    Navigator.pushNamed(context, Flurorouter.nuevoprofRoute);
                   },
                   text: 'Añadir Profesor',
                   icon: Icons.add_outlined),

@@ -48,6 +48,39 @@ class UserFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  copyUserWithCreate({
+    String? rol,
+    String? apellidos,
+    String? password,
+    String? nombres,
+    String? direccion,
+    String? curso,
+    String? correo,
+    String? uid,
+    String? img,
+    String? celular,
+    String? horario_atencion,
+    String? area,
+    int? edad,
+  }) {
+    user = new UserModel(
+      role: rol ?? this.user?.role,
+      apellidos: apellidos ?? this.user?.apellidos,
+      password: password ?? this.user?.password,
+      nombres: nombres ?? this.user?.nombres,
+      email: correo ?? this.user?.email,
+      celular: celular ?? this.user?.celular,
+      direccion: direccion ?? this.user?.direccion,
+      curso: curso ?? this.user?.curso,
+      edad: edad ?? this.user?.edad,
+      id: uid ?? this.user?.id,
+      img: img ?? this.user?.img,
+      horario_atencion: horario_atencion ?? this.user?.horario_atencion,
+      area: area ?? this.user?.area,
+    );
+    notifyListeners();
+  }
+
   bool _validForm() {
     return formKey.currentState!.validate();
   }
@@ -101,25 +134,53 @@ class UserFormProvider extends ChangeNotifier {
   createUser() async {
     if (!this._validForm()) return false;
     print(user);
-    // final data = {
-    //   'nombre': user!.nombres,
-    //   'correo': user!.email,
-    //   'edad': user!.edad,
-    //   'apellido': user!.apellidos,
-    //   'direccion': user!.direccion,
-    //   'password': user!.password,
-    //   'curso': user!.curso,
-    //   'celular': user!.celular,
-    // };
-    // print(data);
-    // try {
-    //   final resp = await LindemannApi.putNuevoEstudiante(data);
-    //   print(resp);
-    //   return true;
-    // } catch (e) {
-    //   print('error en crearUser: $e');
-    //   return false;
-    // }
+    final data = {
+      'nombre': user!.nombres,
+      'correo': user!.email,
+      'edad': user!.edad,
+      'apellido': user!.apellidos,
+      'direccion': user!.direccion,
+      'password': user!.password,
+      'curso': user!.curso,
+      'rol': user!.role,
+      'celular': user!.celular,
+    };
+    print(data);
+    try {
+      final resp = await LindemannApi.putNuevoEstudiante(data);
+      print(resp);
+      return true;
+    } catch (e) {
+      print('error en crearUser: $e');
+      return false;
+    }
+  }
+
+  createProfesor() async {
+    if (!this._validForm()) return false;
+    print(user);
+    final data = {
+      'nombre': user!.nombres,
+      'correo': user!.email,
+      'edad': user!.edad,
+      'apellido': user!.apellidos,
+      'direccion': user!.direccion,
+      'password': user!.password,
+      'curso': user!.curso,
+      'horario_atencion': user!.horario_atencion,
+      'area': user!.area,
+      'rol': user!.role,
+      'celular': user!.celular,
+    };
+    print(data);
+    try {
+      final resp = await LindemannApi.putNuevoProfesor(data);
+      print(resp);
+      return true;
+    } catch (e) {
+      print('error en crearUser: $e');
+      return false;
+    }
   }
 
   // Future<Usuario> uploadImage(String path, Uint8List bytes) async {

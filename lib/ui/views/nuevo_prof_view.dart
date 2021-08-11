@@ -17,20 +17,21 @@ import 'package:ssalindemann/ui/inputs/custom_inputs.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
 
 // esta es la base de una nueva vista del panel administrativo
-class NuevoUserView extends StatefulWidget {
-  const NuevoUserView({Key? key}) : super(key: key);
+class NuevoProfView extends StatefulWidget {
+  const NuevoProfView({Key? key}) : super(key: key);
 
   @override
-  _NuevoUserViewState createState() => _NuevoUserViewState();
+  _NuevoProfViewState createState() => _NuevoProfViewState();
 }
 
-class _NuevoUserViewState extends State<NuevoUserView> {
+class _NuevoProfViewState extends State<NuevoProfView> {
   UserModel? user;
 
   @override
   void initState() {
     super.initState();
-    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final profesorProvider =
+        Provider.of<ProfesorProvider>(context, listen: false);
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
     userFormProvider.formKey = new GlobalKey<FormState>();
@@ -52,7 +53,7 @@ class _NuevoUserViewState extends State<NuevoUserView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-            'Datos del Estudiante',
+            'Datos del Profesor',
             style: CustomLabels.h1,
           ),
           SizedBox(
@@ -66,7 +67,7 @@ class _NuevoUserViewState extends State<NuevoUserView> {
           //       child: CircularProgressIndicator(),
           //     ),
           //   ),
-          _userViewBody(),
+          _profViewBody(),
           Text('${user?.nombres}')
         ],
       ),
@@ -74,7 +75,7 @@ class _NuevoUserViewState extends State<NuevoUserView> {
   }
 }
 
-class _userViewBody extends StatelessWidget {
+class _profViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,7 +108,7 @@ class _UserViewForm extends StatelessWidget {
     // final user = userFormProvider.user!;
 
     return WhiteCard(
-        title: 'Información del Estudiante',
+        title: 'Información del Profesor',
         child: Form(
           key: userFormProvider.formKey,
           autovalidateMode: AutovalidateMode.always,
@@ -115,7 +116,7 @@ class _UserViewForm extends StatelessWidget {
             children: [
               TextFormField(
                 decoration: CustomInputs.formInputDecoration(
-                    hint: 'Nombre de Estudiante',
+                    hint: 'Nombre del Profesor',
                     label: 'Nombre',
                     icon: Icons.supervised_user_circle_outlined),
                 onChanged: (value) =>
@@ -135,7 +136,7 @@ class _UserViewForm extends StatelessWidget {
                 onChanged: (value) =>
                     userFormProvider.copyUserWithCreate(apellidos: value),
                 decoration: CustomInputs.formInputDecoration(
-                    hint: 'Apellidos del Estudiante',
+                    hint: 'Apellidos del Profesor',
                     label: 'Apellidos',
                     icon: Icons.supervised_user_circle_outlined),
                 validator: (value) {
@@ -220,14 +221,30 @@ class _UserViewForm extends StatelessWidget {
               ),
               TextFormField(
                 onChanged: (value) =>
-                    userFormProvider.copyUserWithCreate(direccion: value),
+                    userFormProvider.copyUserWithCreate(area: value),
                 decoration: CustomInputs.formInputDecoration(
-                    hint: 'Direccion de su casa',
-                    label: 'Direccion',
-                    icon: Icons.map_outlined),
+                    hint: 'Area',
+                    label: 'Area',
+                    icon: Icons.bookmark_border_outlined),
                 validator: (value) {
                   if (value == null || value.isEmpty)
-                    return 'Ingrese una direccion de referencia';
+                    return 'Ingrese su Area de especialidad';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                onChanged: (value) => userFormProvider.copyUserWithCreate(
+                    horario_atencion: value),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Horario de Atencion',
+                    label: 'Horario de Atencion',
+                    icon: Icons.timelapse_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese su Horario de Atención';
                   return null;
                 },
               ),
@@ -260,10 +277,10 @@ class _UserViewForm extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () async {
                       // postear, actualizar usuario
-                      userFormProvider.copyUserWithCreate(rol: "Estudiante");
-                      final saved = await userFormProvider.createUser();
+                      userFormProvider.copyUserWithCreate(rol: "Profesor");
+                      final saved = await userFormProvider.createProfesor();
                       if (saved) {
-                        NotificationsService.showSnackbar('Usuario Creado');
+                        NotificationsService.showSnackbar('Profesor Creado');
                         // Provider.of<UsersProvider>(context, listen: false)
                         //     .refreshUser(user);
                         // actualizar usuarios??

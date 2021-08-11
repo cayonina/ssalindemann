@@ -9,6 +9,7 @@ class ProfesorProvider extends ChangeNotifier {
   bool isLoading = true;
   bool ascending = true;
   int? sortColumnIndex;
+  // String area;
   ProfesorProvider() {
     this.getPaginatedProfesor();
   }

@@ -178,6 +178,17 @@ class LindemannApi {
         .catchError((error) => print("NO ACTUALIZA"));
   }
 
+  static Future putNuevoProfesor(Map<String, dynamic> data) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    profesorRef
+        .add(data)
+        .then((value) => print('Profesor Agregado'))
+        .catchError((error) => print('Falla al añadir profesor $error'));
+  }
+
   static Future deleteEstudiante(String id) async {
     final firebase =
         await FirebaseFirestore.instance.collection('usuarios').get();

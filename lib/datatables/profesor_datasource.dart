@@ -7,7 +7,8 @@ import 'package:ssalindemann/services/navigation_services.dart';
 class ProfesorDataSource extends DataTableSource {
   final List<UserModel> users;
   final BuildContext context;
-  ProfesorDataSource(this.users, this.context);
+  final String area;
+  ProfesorDataSource(this.users, this.context, this.area);
 
   @override
   DataRow getRow(int index) {

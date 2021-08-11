@@ -253,6 +253,23 @@ class _UserViewForm extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              TextFormField(
+                initialValue: user.horario_atencion,
+                onChanged: (value) =>
+                    userFormProvider.copyUserWith(horario_atencion: value),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Horario de Atención',
+                    label: 'Horario de Atención',
+                    icon: Icons.map_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese el Horario de Atención';
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
               DropdownButton<String>(
                 items: <String>['1A', '1B', '1C', '1D'].map((String value) {
                   return DropdownMenuItem<String>(

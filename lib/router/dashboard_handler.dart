@@ -7,6 +7,7 @@ import 'package:ssalindemann/ui/views/cursos_view.dart';
 import 'package:ssalindemann/ui/views/dashboard_view.dart';
 import 'package:ssalindemann/ui/views/horario_view.dart';
 import 'package:ssalindemann/ui/views/login_view.dart';
+import 'package:ssalindemann/ui/views/nuevo_prof_view.dart';
 import 'package:ssalindemann/ui/views/nuevo_user_view.dart';
 import 'package:ssalindemann/ui/views/prof_view.dart';
 import 'package:ssalindemann/ui/views/profesores_view.dart';
@@ -66,15 +67,6 @@ class DashboardHandlers {
     else
       return LoginView();
   });
-  static Handler profesor = new Handler(handlerFunc: (context, params) {
-    final authProvider = Provider.of<AuthProvider>(context!);
-    Provider.of<SideMenuProvider>(context, listen: false)
-        .setCurrenPageUrl(Flurorouter.profesorRoute);
-    if (authProvider.authStatus == AuthStatus.authenticated)
-      return TablaProfesoresView();
-    else
-      return LoginView();
-  });
 
   static Handler nuevouser = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
@@ -85,6 +77,17 @@ class DashboardHandlers {
     else
       return LoginView();
   });
+
+  static Handler nuevoprof = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.nuevoprofRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return NuevoProfView();
+    else
+      return LoginView();
+  });
+
   static Handler user = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
@@ -101,6 +104,7 @@ class DashboardHandlers {
     else
       return LoginView();
   });
+
   static Handler prof = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
@@ -110,7 +114,24 @@ class DashboardHandlers {
       if (params['uid']?.first != null) {
         return ProfView(uid: params['uid']!.first);
       } else {
-        return TablaProfesoresView();
+        return ProfesoresView();
+      }
+    }
+    //
+    else
+      return LoginView();
+  });
+
+  static Handler profesor = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.profesorRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['area']?.first != null) {
+        return TablaProfesoresView(area: params['area']!.first);
+      } else {
+        return ProfesoresView();
       }
     }
     //

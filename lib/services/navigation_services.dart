@@ -10,4 +10,8 @@ class NavigationService {
   static replaceTo(String routeName) {
     return navigatorKey.currentState!.pushReplacementNamed(routeName);
   }
+
+  static replaceAreaTo(String routeArea) {
+    return navigatorKey.currentState!.pushReplacementNamed(routeArea);
+  }
 }

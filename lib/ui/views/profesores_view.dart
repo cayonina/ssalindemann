@@ -34,7 +34,7 @@ class ProfesoresView extends StatelessWidget {
                 title: 'Literatura',
                 onPressed: () {
                   print('click en literatura');
-                  navigateTo(Flurorouter.profesorRoute);
+                  NavigationService.replaceTo('/dashboard/profesor/Literatura');
                 },
                 child: Center(
                   child: Center(
@@ -56,7 +56,8 @@ class ProfesoresView extends StatelessWidget {
                   )),
                 ),
                 onPressed: () {
-                  navigateTo(Flurorouter.profesorRoute);
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/Matematicas');
                 },
                 width: 220,
                 color: Colors.red.shade700,
@@ -70,6 +71,10 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/CienciasNaturales');
+                },
                 width: 220,
                 color: Colors.green.shade700,
               ),
@@ -82,6 +87,9 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  NavigationService.replaceTo('/dashboard/profesor/Sociales');
+                },
                 width: 220,
                 color: Colors.purple.shade700,
               ),
@@ -94,6 +102,10 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/Cosmovision');
+                },
                 width: 220,
                 color: Colors.blue.shade700,
               ),
@@ -106,6 +118,9 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  NavigationService.replaceTo('/dashboard/profesor/Artes');
+                },
                 width: 220,
                 color: Colors.pink.shade700,
               ),
@@ -118,6 +133,10 @@ class ProfesoresView extends StatelessWidget {
                     color: Colors.white,
                   )),
                 ),
+                onPressed: () {
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/Administrativos');
+                },
                 width: 220,
                 color: Colors.brown.shade700,
               ),
