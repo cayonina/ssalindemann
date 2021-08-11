@@ -44,7 +44,8 @@ class ProfesorDataSource extends DataTableSource {
                 icon: Icon(Icons.edit_outlined),
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
-                  NavigationService.replaceTo('/dashboard/profesor/${user.id}');
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/${user.area}/${user.id}');
                 },
               ),
               IconButton(

@@ -45,7 +45,7 @@ class _ProfViewState extends State<ProfView> {
           this.user = userDB;
         });
       } else {
-        NavigationService.replaceTo('/dashboard/users');
+        NavigationService.replaceTo('/dashboard/profesores');
       }
     });
   }

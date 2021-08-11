@@ -40,6 +40,8 @@ class LindemannApi {
         await FirebaseFirestore.instance.collection('usuarios').get();
     final typeUsersRef = firebase.docs.first.reference;
     final profesorRef = typeUsersRef.collection('profesor');
+    // final respStudent =
+    //     await profesorRef.where('area', isEqualTo: 'Literatura').get();
     final respStudent = await profesorRef.get();
     print(respStudent.docs);
     return List.from(
