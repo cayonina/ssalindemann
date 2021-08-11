@@ -38,11 +38,11 @@ class ProfesorProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserModel?> getUserById(String uid) async {
+  Future<UserModel?> getProfesorById(String uid) async {
     // peticion http
 
     try {
-      final resp = await LindemannApi.httpGetUserbyId(uid);
+      final resp = await LindemannApi.httpGetProfesorbyId(uid);
 
       return resp;
     } catch (e) {
@@ -62,14 +62,14 @@ class ProfesorProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteEstudiante(String id) async {
+  Future deleteProfesor(String id) async {
     try {
-      await LindemannApi.deleteEstudiante(id);
+      await LindemannApi.deleteProfesor(id);
       users.removeWhere((user) => user.id == id);
       notifyListeners();
     } catch (e) {
       print(e);
-      throw 'error al eliminar estudiantee';
+      throw 'error al eliminar profesor';
     }
   }
 }

@@ -8,7 +8,6 @@ class UsersDataSource extends DataTableSource {
   final List<UserModel> users;
   final BuildContext context;
   UsersDataSource(this.users, this.context);
-
   @override
   DataRow getRow(int index) {
     final UserModel user = users[index];

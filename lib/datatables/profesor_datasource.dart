@@ -43,7 +43,7 @@ class ProfesorDataSource extends DataTableSource {
                 icon: Icon(Icons.edit_outlined),
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
-                  NavigationService.replaceTo('/dashboard/users/${user.id}');
+                  NavigationService.replaceTo('/dashboard/profesor/${user.id}');
                 },
               ),
               IconButton(
@@ -63,9 +63,9 @@ class ProfesorDataSource extends DataTableSource {
                           child: Text('No')),
                       TextButton(
                           onPressed: () async {
-                            await Provider.of<UsersProvider>(context,
+                            await Provider.of<ProfesorProvider>(context,
                                     listen: false)
-                                .deleteEstudiante(user.id!);
+                                .deleteProfesor(user.id!);
                             Navigator.of(context).pop();
                           },
                           child: Text('Si, borrar')),

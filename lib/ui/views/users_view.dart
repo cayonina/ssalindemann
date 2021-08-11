@@ -38,9 +38,9 @@ class UsersView extends StatelessWidget {
             actions: [
               CustomIconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Flurorouter.usersRoute);
+                    Navigator.pushNamed(context, Flurorouter.nuevouserRoute);
                   },
-                  text: 'Añadir nuevo Estudiante',
+                  text: 'Añadir Estudiante',
                   icon: Icons.add_outlined),
             ],
             columns: [

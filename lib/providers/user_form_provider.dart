@@ -55,15 +55,71 @@ class UserFormProvider extends ChangeNotifier {
   updateUser() async {
     if (!this._validForm()) return false;
 
-    final data = {'nombre': user!.nombres, 'correo': user!.email};
+    final data = {
+      'nombre': user!.nombres,
+      'correo': user!.email,
+      'edad': user!.edad,
+      'apellido': user!.apellidos,
+      'direccion': user!.direccion,
+      'password': user!.password,
+      'curso': user!.curso,
+      'celular': user!.celular,
+    };
     try {
-      final resp = await LindemannApi.put('/usuarios/${user!.id}', data);
+      final resp = await LindemannApi.putEstudiante(user!.id!, data);
       print(resp);
       return true;
     } catch (e) {
       print('error en updateUser: $e');
       return false;
     }
+  }
+
+  updateProfesor() async {
+    if (!this._validForm()) return false;
+
+    final data = {
+      'nombre': user!.nombres,
+      'correo': user!.email,
+      'edad': user!.edad,
+      'apellido': user!.apellidos,
+      'direccion': user!.direccion,
+      'password': user!.password,
+      'curso': user!.curso,
+      'celular': user!.celular,
+    };
+    try {
+      final resp = await LindemannApi.putProfesor(user!.id!, data);
+      print(resp);
+      return true;
+    } catch (e) {
+      print('error en updateUser: $e');
+      return false;
+    }
+  }
+
+  createUser() async {
+    if (!this._validForm()) return false;
+    print(user);
+    // final data = {
+    //   'nombre': user!.nombres,
+    //   'correo': user!.email,
+    //   'edad': user!.edad,
+    //   'apellido': user!.apellidos,
+    //   'direccion': user!.direccion,
+    //   'password': user!.password,
+    //   'curso': user!.curso,
+    //   'celular': user!.celular,
+    // };
+    // print(data);
+    // try {
+    //   final resp = await LindemannApi.putNuevoEstudiante(data);
+    //   print(resp);
+    //   return true;
+    // } catch (e) {
+    //   print('error en crearUser: $e');
+    //   return false;
+    // }
   }
 
   // Future<Usuario> uploadImage(String path, Uint8List bytes) async {

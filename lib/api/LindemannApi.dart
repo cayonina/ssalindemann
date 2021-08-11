@@ -21,29 +21,6 @@ class LindemannApi {
     };
   }
 
-  static Future httpGet(String path) async {
-    // QueryDocumentSnapshot<Map<String, dynamic>>? userResponse;
-    // final firebase =
-    //     await FirebaseFirestore.instance.collection('usuarios').get();
-    // final typeUsersRef = firebase.docs.first.reference;
-    // final studentsRef = typeUsersRef.collection('estudiante');
-    // final respStudent = await studentsRef.get();
-    // List userResponse = respStudent.docs;
-    // if (userResponse != null) {
-    //   return UserModel.fromJson(userResponse.id, userResponse.data());
-    // } else {
-    //   return null;
-    // }
-    try {
-      final resp = await _dio.get(path);
-
-      return resp.data;
-    } on DioError catch (e) {
-      print(e.response);
-      throw ('Error en el GET');
-    }
-  }
-
   static Future<List<UserModel>> httpGetEstudiante() async {
     final firebase =
         await FirebaseFirestore.instance.collection('usuarios').get();
@@ -81,6 +58,17 @@ class LindemannApi {
     final respStudent = await studentsRef.doc(id).get();
     print(respStudent.data());
     return UserModel.fromJson(id, respStudent.data()!);
+  }
+
+  static Future<UserModel> httpGetProfesorbyId(String id) async {
+    print(id);
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeProfesorRef = firebase.docs.first.reference;
+    final profesorRef = typeProfesorRef.collection('profesor');
+    final respProfesor = await profesorRef.doc(id).get();
+    print(respProfesor.data());
+    return UserModel.fromJson(id, respProfesor.data()!);
   }
 
   static Future post(String path, Map<String, dynamic> data) async {
@@ -155,16 +143,39 @@ class LindemannApi {
     }
   }
 
-  static Future delete(String path, Map<String, dynamic> data) async {
-    final formData = FormData.fromMap(data);
+  static Future putEstudiante(String id, Map<String, dynamic> data) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    studentsRef
+        .doc(id)
+        .update(data)
+        .then((value) => print("ACTUALIZADO"))
+        .catchError((error) => print("NO ACTUALIZA"));
+  }
 
-    try {
-      final resp = await _dio.delete(path, data: formData);
-      return resp.data;
-    } on DioError catch (e) {
-      print(e);
-      throw ('Error en el DELETE');
-    }
+  static Future putNuevoEstudiante(Map<String, dynamic> data) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    studentsRef
+        .add(data)
+        .then((value) => print('Estudiante Agregado'))
+        .catchError((error) => print('Falla al añadir estudiante $error'));
+  }
+
+  static Future putProfesor(String id, Map<String, dynamic> data) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    profesorRef
+        .doc(id)
+        .update(data)
+        .then((value) => print("ACTUALIZADO Profesor"))
+        .catchError((error) => print("NO ACTUALIZA"));
   }
 
   static Future deleteEstudiante(String id) async {
@@ -176,6 +187,18 @@ class LindemannApi {
         .doc(id)
         .delete()
         .then((value) => print("Estudiante Eliminado"))
+        .catchError((error) => print("Fallo al borrar $error"));
+  }
+
+  static Future deleteProfesor(String id) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    final respProfesor = await profesorRef
+        .doc(id)
+        .delete()
+        .then((value) => print("Profesor Eliminado"))
         .catchError((error) => print("Fallo al borrar $error"));
 
     // CollectionReference usuario =
@@ -203,3 +226,15 @@ class LindemannApi {
     }
   }
 }
+
+// static Future delete(String path, Map<String, dynamic> data) async {
+//   final formData = FormData.fromMap(data);
+
+//   try {
+//     final resp = await _dio.delete(path, data: formData);
+//     return resp.data;
+//   } on DioError catch (e) {
+//     print(e);
+//     throw ('Error en el DELETE');
+//   }
+// }
