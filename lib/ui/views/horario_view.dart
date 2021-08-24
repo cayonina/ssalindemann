@@ -38,7 +38,7 @@ class HorarioView extends StatelessWidget {
               children: [
                 // AQUI DEBEN IR SOLO IMAGENES DE LOS HORARIOS
                 Image.network(
-                    'gs://database-lindemann.appspot.com/horario/1B.png'),
+                    'https://firebasestorage.googleapis.com/v0/b/database-lindemann.appspot.com/o/horario%2F1B.png?alt=media&token=c436c7e5-e0ed-41c1-b2ef-14710dd1edb0'),
               ],
             ),
           ),

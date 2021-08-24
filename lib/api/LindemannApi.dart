@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/services/local_storage.dart';
@@ -149,6 +151,27 @@ class LindemannApi {
 
     if (respStudent.docs.isNotEmpty) {
       userResponse = respStudent.docs.first;
+
+      final notesQuerySnapshot =
+          await userResponse.reference.collection('notas').get();
+
+      final jsonNotes = List<Map<String, dynamic>>.from(
+        notesQuerySnapshot.docs.map((qds) {
+          final tmpJson = qds.data();
+          tmpJson['id'] = qds.id;
+          return tmpJson;
+        }),
+      );
+
+      print('==== NOTAS ===== $jsonNotes ===');
+
+      final estudianteModel = EstudianteModel.fromJson(
+        userResponse.id,
+        userResponse.data(),
+        jsonNotes,
+      );
+
+      print('==== ESTUDIANTE ===== $estudianteModel ===');
     }
 
     if (respTeacher.docs.isNotEmpty) {
