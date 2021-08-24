@@ -3,12 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:ssalindemann/providers/auth_provider.dart';
 import 'package:ssalindemann/providers/sidemenu_provider.dart';
 import 'package:ssalindemann/router/router.dart';
+import 'package:ssalindemann/ui/views/calificaciones_view.dart';
 import 'package:ssalindemann/ui/views/cursos_view.dart';
 import 'package:ssalindemann/ui/views/dashboard_view.dart';
 import 'package:ssalindemann/ui/views/horario_view.dart';
 import 'package:ssalindemann/ui/views/login_view.dart';
+import 'package:ssalindemann/ui/views/notas_view.dart';
 import 'package:ssalindemann/ui/views/nuevo_prof_view.dart';
 import 'package:ssalindemann/ui/views/nuevo_user_view.dart';
+import 'package:ssalindemann/ui/views/perfil_view.dart';
 import 'package:ssalindemann/ui/views/prof_view.dart';
 import 'package:ssalindemann/ui/views/profesores_view.dart';
 import 'package:ssalindemann/ui/views/tabla_profesores_view.dart';
@@ -58,13 +61,53 @@ class DashboardHandlers {
       return LoginView();
   });
 
+  static Handler notas = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.notasRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return NotasView();
+    else
+      return LoginView();
+  });
+
+  static Handler calificaciones = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.calificacionesRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return CalificacionesView();
+    else
+      return LoginView();
+  });
+
+  static Handler perfil = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.perfilRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return PerfilView();
+    else
+      return LoginView();
+  });
+
   static Handler users = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
         .setCurrenPageUrl(Flurorouter.usersRoute);
-    if (authProvider.authStatus == AuthStatus.authenticated)
-      return UsersView();
-    else
+    // if (authProvider.authStatus == AuthStatus.authenticated)
+    //   return UsersView();
+    // else
+    //   return LoginView();
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['curso']?.first != null) {
+        print("aquiiiiiiiiiiiiiiiiiiii " + params['curso']!.first);
+        return UsersView(curso: params['curso']!.first);
+      } else {
+        return CursosView();
+      }
+    } else
       return LoginView();
   });
 
@@ -97,7 +140,7 @@ class DashboardHandlers {
       if (params['uid']?.first != null) {
         return UserView(uid: params['uid']!.first);
       } else {
-        return UsersView();
+        return CursosView();
       }
     }
     //
@@ -129,13 +172,12 @@ class DashboardHandlers {
     if (authProvider.authStatus == AuthStatus.authenticated) {
       print(params);
       if (params['area']?.first != null) {
+        print("aquiiiiiiiiiiiiiiiiiiii " + params['area']!.first);
         return TablaProfesoresView(area: params['area']!.first);
       } else {
         return ProfesoresView();
       }
-    }
-    //
-    else
+    } else
       return LoginView();
   });
 }

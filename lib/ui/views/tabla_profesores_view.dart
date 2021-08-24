@@ -14,6 +14,7 @@ class TablaProfesoresView extends StatefulWidget {
   final String area;
 
   const TablaProfesoresView({Key? key, required this.area}) : super(key: key);
+
   @override
   _TablaProfesoresViewState createState() => _TablaProfesoresViewState();
 }
@@ -22,9 +23,14 @@ class _TablaProfesoresViewState extends State<TablaProfesoresView> {
   @override
   Widget build(BuildContext context) {
     final profesorProvider = Provider.of<ProfesorProvider>(context);
+    // print("ESTAMOS TABLA " + widget.area);
+    profesorProvider.setArea(widget.area);
+    print("AAAAHHH " + profesorProvider.area);
+    profesorProvider.getPaginatedProfesorbyArea(widget.area);
+
+    // final profDB = profesorProvider.getPaginatedProfesorbyArea(widget.area);
     final profesorDataSource =
         new ProfesorDataSource(profesorProvider.users, context, widget.area);
-    print('LLega la ventana tabla');
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

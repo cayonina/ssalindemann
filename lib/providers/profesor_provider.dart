@@ -2,22 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:ssalindemann/api/LindemannApi.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
 import 'package:ssalindemann/models/user_model.dart';
-import 'package:ssalindemann/models/usuario.dart';
 
 class ProfesorProvider extends ChangeNotifier {
   List<UserModel> users = [];
   bool isLoading = true;
   bool ascending = true;
   int? sortColumnIndex;
+
+  String area = null.toString();
+
   // String area;
   ProfesorProvider() {
     this.getPaginatedProfesor();
+    // this.setArea(area);
+    // this.getPaginatedProfesorbyArea(area);
+  }
+
+  void setArea(String area) {
+    print("PROVIDEER: " + area);
+    this.area = area;
   }
 
   getPaginatedProfesor() async {
     // peticion http
     final resp = await LindemannApi.httpGetProfesor();
     print(resp);
+    this.users = [...resp];
+    print(this.users.length);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  getPaginatedProfesorbyArea(String area) async {
+    print(area + "aqui provider");
+    // peticion http
+    final resp = await LindemannApi.httpGetProfesorbyArea(area);
     this.users = [...resp];
     print(this.users.length);
     isLoading = false;

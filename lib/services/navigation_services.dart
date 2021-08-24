@@ -14,4 +14,8 @@ class NavigationService {
   static replaceAreaTo(String routeArea) {
     return navigatorKey.currentState!.pushReplacementNamed(routeArea);
   }
+
+  static replaceCursoTo(String routeCurso) {
+    return navigatorKey.currentState!.pushReplacementNamed(routeCurso);
+  }
 }

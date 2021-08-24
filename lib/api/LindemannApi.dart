@@ -35,6 +35,21 @@ class LindemannApi {
     );
   }
 
+  static Future<List<UserModel>> httpGetEstudianteByCurso(String curso) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    final respStudent =
+        await studentsRef.where('curso', isEqualTo: curso).get();
+    print(respStudent.docs);
+    return List.from(
+      respStudent.docs.map(
+        (document) => UserModel.fromJson(document.id, document.data()),
+      ),
+    );
+  }
+
   static Future<List<UserModel>> httpGetProfesor() async {
     final firebase =
         await FirebaseFirestore.instance.collection('usuarios').get();
@@ -42,10 +57,26 @@ class LindemannApi {
     final profesorRef = typeUsersRef.collection('profesor');
     // final respStudent =
     //     await profesorRef.where('area', isEqualTo: 'Literatura').get();
-    final respStudent = await profesorRef.get();
-    print(respStudent.docs);
+    final respProfesor = await profesorRef.get();
+    // print(respStudent.docs);
     return List.from(
-      respStudent.docs.map(
+      respProfesor.docs.map(
+        (document) => UserModel.fromJson(document.id, document.data()),
+      ),
+    );
+  }
+
+  static Future<List<UserModel>> httpGetProfesorbyArea(String area) async {
+    print('APII: ' + area);
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    // final respStudent =
+    //     await profesorRef.where('area', isEqualTo: 'Literatura').get();
+    final respProfesor = await profesorRef.where('area', isEqualTo: area).get();
+    return List.from(
+      respProfesor.docs.map(
         (document) => UserModel.fromJson(document.id, document.data()),
       ),
     );

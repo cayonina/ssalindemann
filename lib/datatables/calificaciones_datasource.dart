@@ -4,11 +4,12 @@ import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/providers/providers.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
 
-class UsersDataSource extends DataTableSource {
+class CalificionesDataSource extends DataTableSource {
   final List<UserModel> users;
   final BuildContext context;
-  final String curso;
-  UsersDataSource(this.users, this.context, this.curso);
+  final String area;
+  CalificionesDataSource(this.users, this.context, this.area);
+
   @override
   DataRow getRow(int index) {
     final UserModel user = users[index];
@@ -34,7 +35,7 @@ class UsersDataSource extends DataTableSource {
         )),
         DataCell(Text(user.apellidos!)),
         DataCell(Text(user.nombres!)),
-        DataCell(Text(user.curso!)),
+        DataCell(Text(user.area!)),
         DataCell(Text(user.celular!)),
         DataCell(
           Row(
@@ -44,7 +45,7 @@ class UsersDataSource extends DataTableSource {
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(
-                      '/dashboard/cursos/${user.curso}/${user.id}');
+                      '/dashboard/profesor/${user.area}/${user.id}');
                 },
               ),
               IconButton(
@@ -64,23 +65,15 @@ class UsersDataSource extends DataTableSource {
                           child: Text('No')),
                       TextButton(
                           onPressed: () async {
-                            await Provider.of<UsersProvider>(context,
+                            await Provider.of<ProfesorProvider>(context,
                                     listen: false)
-                                .deleteEstudiante(user.id!);
+                                .deleteProfesor(user.id!);
                             Navigator.of(context).pop();
                           },
                           child: Text('Si, borrar')),
                     ],
                   );
                   showDialog(context: context, builder: (_) => dialog);
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.grade_outlined),
-                onPressed: () {
-                  // // todo navegar a una nueva pantalla con la información del usuario
-                  // NavigationService.replaceTo(
-                  //     '/dashboard/cursos/${user.curso}/${user.id}');
                 },
               ),
             ],

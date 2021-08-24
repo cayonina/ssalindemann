@@ -37,7 +37,10 @@ class CursosView extends StatelessWidget {
             children: [
               CursosCard(
                 title: 'Primero A',
-                onPressed: () => navigateTo(Flurorouter.usersRoute),
+                onPressed: () {
+                  print('click Primero A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/1A');
+                },
                 child: Center(
                     child: Text(
                   '1ro. "A"',
@@ -51,6 +54,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Primero B',
+                onPressed: () {
+                  print('click Primero B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/1B');
+                },
                 child: Center(
                     child: Text(
                   '1ro. "B"',
@@ -64,6 +71,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Primero C',
+                onPressed: () {
+                  print('click Primero C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/1C');
+                },
                 child: Center(
                     child: Text(
                   '1ro. "C"',
@@ -77,6 +88,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Primero D',
+                onPressed: () {
+                  print('click Primero D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/1D');
+                },
                 child: Center(
                     child: Text(
                   '1ro. "D"',
@@ -90,6 +105,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Primero E',
+                onPressed: () {
+                  print('click Primero E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/1E');
+                },
                 child: Center(
                     child: Text(
                   '1ro. "E"',
@@ -104,6 +123,10 @@ class CursosView extends StatelessWidget {
               TextSeparator(text: 'Salir'),
               CursosCard(
                 title: 'Segundo A',
+                onPressed: () {
+                  print('click Segundo A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/2A');
+                },
                 child: Center(
                     child: Text(
                   '2do. "A"',
@@ -117,6 +140,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Segundo B',
+                onPressed: () {
+                  print('click Segundo B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/2B');
+                },
                 child: Center(
                     child: Text(
                   '2do. "B"',
@@ -130,6 +157,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Segundo C',
+                onPressed: () {
+                  print('click Segundo C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/2C');
+                },
                 child: Center(
                     child: Text(
                   '2do. "C"',
@@ -143,6 +174,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Segundo D',
+                onPressed: () {
+                  print('click Segundo D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/2D');
+                },
                 child: Center(
                     child: Text(
                   '2do. "D"',
@@ -156,6 +191,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Segundo E',
+                onPressed: () {
+                  print('click Segundo E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/2E');
+                },
                 child: Center(
                     child: Text(
                   '2do. "E"',
@@ -170,6 +209,10 @@ class CursosView extends StatelessWidget {
               TextSeparator(text: 'Salir'),
               CursosCard(
                 title: 'Tercero A',
+                onPressed: () {
+                  print('click Tercero A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/3A');
+                },
                 child: Center(
                     child: Text(
                   '3ro. "A"',
@@ -183,6 +226,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Tercero B',
+                onPressed: () {
+                  print('click Tercero B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/3B');
+                },
                 child: Center(
                     child: Text(
                   '3ro. "B"',
@@ -196,6 +243,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Tercero C',
+                onPressed: () {
+                  print('click Tercero C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/3C');
+                },
                 child: Center(
                     child: Text(
                   '3ro. "C"',
@@ -209,6 +260,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Tercero D',
+                onPressed: () {
+                  print('click Tercero D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/3D');
+                },
                 child: Center(
                     child: Text(
                   '3ro. "D"',
@@ -222,6 +277,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Tercero E',
+                onPressed: () {
+                  print('click Tercero E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/3E');
+                },
                 child: Center(
                     child: Text(
                   '3ro. "E"',
@@ -236,6 +295,10 @@ class CursosView extends StatelessWidget {
               TextSeparator(text: 'Salir'),
               CursosCard(
                 title: 'Cuarto A',
+                onPressed: () {
+                  print('click Cuarto A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/4A');
+                },
                 child: Center(
                     child: Text(
                   '4to. "A"',
@@ -249,6 +312,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Cuarto B',
+                onPressed: () {
+                  print('click Cuarto B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/4B');
+                },
                 child: Center(
                     child: Text(
                   '4to. "B"',
@@ -262,6 +329,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Cuarto C',
+                onPressed: () {
+                  print('click Cuarto C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/4C');
+                },
                 child: Center(
                     child: Text(
                   '4to. "C"',
@@ -275,6 +346,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Cuarto D',
+                onPressed: () {
+                  print('click Cuarto D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/4D');
+                },
                 child: Center(
                     child: Text(
                   '4to. "D"',
@@ -288,6 +363,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Cuarto E',
+                onPressed: () {
+                  print('click Cuarto E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/4E');
+                },
                 child: Center(
                     child: Text(
                   '4to. "E"',
@@ -302,6 +381,10 @@ class CursosView extends StatelessWidget {
               TextSeparator(text: 'Salir'),
               CursosCard(
                 title: 'Quinto A',
+                onPressed: () {
+                  print('click Quinto A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/5A');
+                },
                 child: Center(
                     child: Text(
                   '5to. "A"',
@@ -315,6 +398,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Quinto B',
+                onPressed: () {
+                  print('click Quinto B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/5B');
+                },
                 child: Center(
                     child: Text(
                   '5to. "B"',
@@ -328,6 +415,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Quinto C',
+                onPressed: () {
+                  print('click Quinto C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/5C');
+                },
                 child: Center(
                     child: Text(
                   '5to. "C"',
@@ -341,6 +432,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Quinto D',
+                onPressed: () {
+                  print('click Quinto D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/5D');
+                },
                 child: Center(
                     child: Text(
                   '5to. "D"',
@@ -354,6 +449,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Quinto E',
+                onPressed: () {
+                  print('click Quinto E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/5E');
+                },
                 child: Center(
                     child: Text(
                   '5to. "E"',
@@ -368,6 +467,10 @@ class CursosView extends StatelessWidget {
               TextSeparator(text: 'Salir'),
               CursosCard(
                 title: 'Sexto A',
+                onPressed: () {
+                  print('click Sexto A');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/6A');
+                },
                 child: Center(
                     child: Text(
                   '6to. "A"',
@@ -381,6 +484,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Sexto B',
+                onPressed: () {
+                  print('click Sexto B');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/6B');
+                },
                 child: Center(
                     child: Text(
                   '6to. "B"',
@@ -394,6 +501,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Sexto C',
+                onPressed: () {
+                  print('click Sexto C');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/6C');
+                },
                 child: Center(
                     child: Text(
                   '6to. "C"',
@@ -407,6 +518,10 @@ class CursosView extends StatelessWidget {
               ),
               CursosCard(
                 title: 'Sexto D',
+                onPressed: () {
+                  print('click Sexto D');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/6D');
+                },
                 child: Center(
                     child: Text(
                   '6to. "D"',
@@ -419,10 +534,11 @@ class CursosView extends StatelessWidget {
                 color: Colors.brown.shade500,
               ),
               CursosCard(
-                onPressed: () {
-                  print('click en 6to E');
-                },
                 title: 'Sexto E',
+                onPressed: () {
+                  print('click Sexto E');
+                  NavigationService.replaceCursoTo('/dashboard/cursos/6E');
+                },
                 child: Center(
                     child: Text(
                   '6to. "E"',

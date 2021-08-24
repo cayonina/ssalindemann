@@ -37,11 +37,10 @@ class Sidebar extends StatelessWidget {
               icon: Icons.home_filled,
               onPressed: () => navigateTo(Flurorouter.dashboardRoute)),
           MenuItem(
-            text: 'Profesores',
-            icon: Icons.people_outline_outlined,
-            isActive:
-                sideMenuProvider.currentPage == Flurorouter.profesoresRoute,
-            onPressed: () => navigateTo(Flurorouter.profesoresRoute),
+            text: 'Mi Perfil',
+            icon: Icons.person_outlined,
+            isActive: sideMenuProvider.currentPage == Flurorouter.perfilRoute,
+            onPressed: () => navigateTo(Flurorouter.perfilRoute),
           ),
           MenuItem(
             isActive: sideMenuProvider.currentPage == Flurorouter.cursosRoute,
@@ -50,23 +49,45 @@ class Sidebar extends StatelessWidget {
             onPressed: () => navigateTo(Flurorouter.cursosRoute),
           ),
           MenuItem(
+            text: 'Profesores',
+            icon: Icons.people_outline_outlined,
+            isActive:
+                sideMenuProvider.currentPage == Flurorouter.profesoresRoute,
+            onPressed: () => navigateTo(Flurorouter.profesoresRoute),
+          ),
+          MenuItem(
+            isActive:
+                sideMenuProvider.currentPage == Flurorouter.calificacionesRoute,
+            text: 'Calificaciones',
+            icon: Icons.grade_outlined,
+            onPressed: () => navigateTo(Flurorouter.calificacionesRoute),
+          ),
+
+          MenuItem(
+            isActive: sideMenuProvider.currentPage == Flurorouter.notasRoute,
+            text: 'Notas',
+            icon: Icons.grade_outlined,
+            onPressed: () => navigateTo(Flurorouter.notasRoute),
+          ),
+
+          MenuItem(
             text: 'Horarios',
             icon: Icons.schedule_outlined,
             isActive: sideMenuProvider.currentPage == Flurorouter.horarioRoute,
             onPressed: () => navigateTo(Flurorouter.horarioRoute),
           ),
-          MenuItem(
-            isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
-            text: 'Estudiantes',
-            icon: Icons.layers_outlined,
-            onPressed: () => navigateTo(Flurorouter.usersRoute),
-          ),
-          MenuItem(
-            isActive: sideMenuProvider.currentPage == Flurorouter.profesorRoute,
-            text: 'Profesor',
-            icon: Icons.layers_outlined,
-            onPressed: () => navigateTo(Flurorouter.profesorRoute),
-          ),
+          // MenuItem(
+          //   isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
+          //   text: 'Estudiantes',
+          //   icon: Icons.layers_outlined,
+          //   onPressed: () => navigateTo(Flurorouter.usersRoute),
+          // ),
+          // MenuItem(
+          //   isActive: sideMenuProvider.currentPage == Flurorouter.profesorRoute,
+          //   text: 'Profesor',
+          //   icon: Icons.layers_outlined,
+          //   onPressed: () => navigateTo(Flurorouter.profesorRoute),
+          // ),
           // MenuItem(
           //   text: 'Users',
           //   icon: Icons.dashboard_outlined,

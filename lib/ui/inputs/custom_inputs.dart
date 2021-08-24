@@ -53,6 +53,38 @@ class CustomInputs {
     return InputDecoration(
         // focusColor: Colors.yellow,
         // hoverColor: Colors.yellow,
+
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.brown.withOpacity(0.5),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.brown.withOpacity(0.5),
+          ),
+        ),
+        hintText: hint,
+        labelText: label,
+        prefixIcon: Icon(
+          icon,
+          color: Colors.brown.withOpacity(0.6),
+        ),
+        labelStyle: TextStyle(color: Colors.brown.withOpacity(0.6)),
+        hintStyle: TextStyle(color: Colors.brown.withOpacity(0.6)));
+  }
+
+  static InputDecoration formNotasInputDecoration({
+    required String hint,
+    required String label,
+    required IconData icon,
+    required bool activado,
+  }) {
+    return InputDecoration(
+
+        // focusColor: Colors.yellow,
+        // hoverColor: Colors.yellow,
+        enabled: activado,
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.brown.withOpacity(0.5),

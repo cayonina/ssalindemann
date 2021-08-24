@@ -9,6 +9,9 @@ class UsersProvider extends ChangeNotifier {
   bool isLoading = true;
   bool ascending = true;
   int? sortColumnIndex;
+
+  String curso = null.toString();
+
   UsersProvider() {
     this.getPaginatedUsers();
   }
@@ -16,6 +19,21 @@ class UsersProvider extends ChangeNotifier {
   getPaginatedUsers() async {
     // peticion http
     final resp = await LindemannApi.httpGetEstudiante();
+    print(resp);
+    this.users = [...resp];
+    print(this.users.length);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  void setCurso(String curso) {
+    print("PROVIDEER: " + curso);
+    this.curso = curso;
+  }
+
+  getPaginatedUsersbyCurso(String curso) async {
+    // peticion http
+    final resp = await LindemannApi.httpGetEstudianteByCurso(curso);
     print(resp);
     this.users = [...resp];
     print(this.users.length);

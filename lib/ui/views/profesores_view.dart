@@ -34,7 +34,8 @@ class ProfesoresView extends StatelessWidget {
                 title: 'Literatura',
                 onPressed: () {
                   print('click en literatura');
-                  NavigationService.replaceTo('/dashboard/profesor/Literatura');
+                  NavigationService.replaceAreaTo(
+                      '/dashboard/profesor/Literatura');
                 },
                 child: Center(
                   child: Center(
