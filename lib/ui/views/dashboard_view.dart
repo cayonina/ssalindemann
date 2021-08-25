@@ -23,7 +23,8 @@ class DashboardView extends StatelessWidget {
           WhiteCard(
               title: 'Bienvenido ' + user.nombres! + " " + user.apellidos!,
               child: Container(
-                child: Image(image: AssetImage('canchapor.png')),
+                child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/database-lindemann.appspot.com/o/canchapor.png?alt=media&token=9ab8a98c-68f2-4837-80ac-986095457204'),
               )),
         ],
       ),

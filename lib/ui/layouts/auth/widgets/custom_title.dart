@@ -28,8 +28,8 @@ class CustomTitle extends StatelessWidget {
           ),
           FittedBox(
             fit: BoxFit.fitWidth,
-            child: Image.asset(
-              'logosf.png',
+            child: Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/database-lindemann.appspot.com/o/logosf.png?alt=media&token=4abf2ef9-0684-4457-bca2-6ef20dc30138',
               width: 200,
               height: 150,
             ),
