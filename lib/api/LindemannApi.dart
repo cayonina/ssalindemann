@@ -266,17 +266,6 @@ class LindemannApi {
         .delete()
         .then((value) => print("Profesor Eliminado"))
         .catchError((error) => print("Fallo al borrar $error"));
-
-    // CollectionReference usuario =
-    //     FirebaseFirestore.instance.collection('usuarios');
-
-    // Future<void> deleteUser() {
-    //   return usuario
-    //       .doc(id)
-    //       .delete()
-    //       .then((value) => print("Estudiante Deleted"))
-    //       .catchError((error) => print("Fallo al borrar $error"));
-    // }
   }
 
   static Future uploadFile(String path, Uint8List bytes) async {
@@ -292,15 +281,3 @@ class LindemannApi {
     }
   }
 }
-
-// static Future delete(String path, Map<String, dynamic> data) async {
-//   final formData = FormData.fromMap(data);
-
-//   try {
-//     final resp = await _dio.delete(path, data: formData);
-//     return resp.data;
-//   } on DioError catch (e) {
-//     print(e);
-//     throw ('Error en el DELETE');
-//   }
-// }

@@ -13,7 +13,7 @@ class ProfesorProvider extends ChangeNotifier {
 
   // String area;
   ProfesorProvider() {
-    this.getPaginatedProfesor();
+    // this.getPaginatedProfesor();
     // this.setArea(area);
     // this.getPaginatedProfesorbyArea(area);
   }

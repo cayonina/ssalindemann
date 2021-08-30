@@ -15,9 +15,10 @@ import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 
 // ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
-  // final String uid;
+  final String uid;
   const NotasView({
     Key? key,
+    required this.uid,
     // required this.uid
   }) : super(key: key);
 

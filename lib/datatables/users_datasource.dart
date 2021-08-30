@@ -79,8 +79,7 @@ class UsersDataSource extends DataTableSource {
                 icon: Icon(Icons.grade_outlined),
                 onPressed: () {
                   // // todo navegar a una nueva pantalla con la información del usuario
-                  // NavigationService.replaceTo(
-                  //     '/dashboard/cursos/${user.curso}/${user.id}');
+                  NavigationService.replaceTo('/dashboard/notas/${user.id}');
                 },
               ),
             ],

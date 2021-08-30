@@ -24,8 +24,8 @@ class _TablaProfesoresViewState extends State<TablaProfesoresView> {
   Widget build(BuildContext context) {
     final profesorProvider = Provider.of<ProfesorProvider>(context);
     // print("ESTAMOS TABLA " + widget.area);
-    profesorProvider.setArea(widget.area);
-    print("AAAAHHH " + profesorProvider.area);
+    // profesorProvider.setArea(widget.area);
+    // print("AAAAHHH " + profesorProvider.area);
     profesorProvider.getPaginatedProfesorbyArea(widget.area);
 
     // final profDB = profesorProvider.getPaginatedProfesorbyArea(widget.area);

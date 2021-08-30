@@ -29,7 +29,6 @@ class PerfilView extends StatefulWidget {
 
 class _PerfilViewState extends State<PerfilView> {
   UserModel? user;
-
   @override
   void initState() {
     super.initState();

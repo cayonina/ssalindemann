@@ -65,19 +65,29 @@ class DashboardHandlers {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
         .setCurrenPageUrl(Flurorouter.notasRoute);
-    if (authProvider.authStatus == AuthStatus.authenticated)
-      return NotasView();
-    else
-      return LoginView();
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['uid']?.first != null) {
+        return NotasView(uid: params['uid']!.first);
+      } else {
+        return CursosView();
+      }
+    }
   });
 
   static Handler calificaciones = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
         .setCurrenPageUrl(Flurorouter.calificacionesRoute);
-    if (authProvider.authStatus == AuthStatus.authenticated)
-      return CalificacionesView();
-    else
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['uid']?.first != null) {
+        print("aquiiiiiiiiiiiiiiiiiiii " + params['uid']!.first);
+        return CalificacionesView(uid: params['uid']!.first);
+      } else {
+        return DashboardView();
+      }
+    } else
       return LoginView();
   });
 
@@ -85,8 +95,15 @@ class DashboardHandlers {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
         .setCurrenPageUrl(Flurorouter.perfilRoute);
-    if (authProvider.authStatus == AuthStatus.authenticated)
-      return PerfilView();
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['uid']?.first != null) {
+        return PerfilView(uid: params['uid']!.first);
+      } else {
+        return DashboardView();
+      }
+    }
+    //
     else
       return LoginView();
   });

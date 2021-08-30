@@ -17,7 +17,8 @@ class Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sideMenuProvider = Provider.of<SideMenuProvider>(context);
-
+    final user = Provider.of<AuthProvider>(context).user!;
+    print(user.apellidos);
     return Container(
       width: 200,
       height: double.infinity,
@@ -40,7 +41,8 @@ class Sidebar extends StatelessWidget {
             text: 'Mi Perfil',
             icon: Icons.person_outlined,
             isActive: sideMenuProvider.currentPage == Flurorouter.perfilRoute,
-            onPressed: () => navigateTo(Flurorouter.perfilRoute),
+            onPressed: () =>
+                NavigationService.replaceTo('/dashboard/perfil/${user.id}'),
           ),
           MenuItem(
             isActive: sideMenuProvider.currentPage == Flurorouter.cursosRoute,
@@ -60,7 +62,8 @@ class Sidebar extends StatelessWidget {
                 sideMenuProvider.currentPage == Flurorouter.calificacionesRoute,
             text: 'Calificaciones',
             icon: Icons.grade_outlined,
-            onPressed: () => navigateTo(Flurorouter.calificacionesRoute),
+            onPressed: () => NavigationService.replaceTo(
+                '/dashboard/calificaciones/${user.id}'),
           ),
 
           MenuItem(
