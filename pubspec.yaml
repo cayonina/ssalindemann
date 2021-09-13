@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  url_launcher: ^6.0.10
   dio: ^4.0.0
   email_validator: ^2.0.1
   file_picker: ^3.0.2+2

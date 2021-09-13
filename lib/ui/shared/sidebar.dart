@@ -7,6 +7,7 @@ import 'package:ssalindemann/services/navigation_services.dart';
 import 'package:ssalindemann/ui/shared/widgets/logo.dart';
 import 'package:ssalindemann/ui/shared/widgets/menu_item.dart';
 import 'package:ssalindemann/ui/shared/widgets/text_separator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Sidebar extends StatelessWidget {
   void navigateTo(String routeName) {
@@ -102,17 +103,23 @@ class Sidebar extends StatelessWidget {
           ),
           TextSeparator(text: 'Redes Sociales'),
           MenuItem(
-            text: 'Facebook',
-            icon: Icons.access_alarm,
+            text: 'YouTube',
+            icon: Icons.video_label_outlined,
             isActive: false,
-            onPressed: () {},
+            onPressed: () {
+              launch(
+                  'https://www.youtube.com/channel/UCMVsR2rrDwn0HaH91axdVIA');
+            },
           ),
 
           MenuItem(
-            text: 'Gmail',
-            icon: Icons.email_outlined,
+            text: 'Facebook',
+            icon: Icons.face_outlined,
             isActive: false,
-            onPressed: () {},
+            onPressed: () {
+              launch(
+                  'https://www.facebook.com/Colegio-Enrique-Lindemann-B-110228301349131');
+            },
           ),
           MenuItem(
             text: 'Informacion',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ssalindemann/models/profesor_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/providers/user_form_provider.dart';
 import 'package:ssalindemann/providers/users_provider.dart';
@@ -18,22 +19,20 @@ class CalificacionesView extends StatefulWidget {
 }
 
 class _CalificacionesViewState extends State<CalificacionesView> {
-  UserModel? user;
+  ProfesorModel? user;
   @override
   void initState() {
     super.initState();
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
-    // }REMPLAZAR EL ID QUE ESTA EN SESION
-    usersProvider
-        .getUserById(widget.uid ?? '0hZmmf9aaU02kfqOCEmK')
-        .then((userDB) {
+    // REMPLAZAR EL ID QUE ESTA EN SESION
+    usersProvider.getUserById(widget.uid).then((userDB) {
       if (userDB != null) {
         userFormProvider.user = userDB;
         userFormProvider.formKey = new GlobalKey<FormState>();
         setState(() {
-          this.user = userDB;
+          // this.user = userDB;
         });
       } else {
         NavigationService.replaceTo('/dashboard/users');
@@ -63,7 +62,7 @@ class _CalificacionesViewState extends State<CalificacionesView> {
           ),
           WhiteCard(
               title: 'Sales statistics',
-              child: Text('Hola Mundo' + user!.apellidos!))
+              child: Text('Hola Mundo ' + user!.apellidos!))
         ],
       ),
     );

@@ -1,31 +1,43 @@
-class ProfesorModel {
+import 'user_model.dart';
+
+class ProfesorModel extends UserModel {
+  final List<Calificacion> calificaciones;
   ProfesorModel({
-    required this.id,
-    required this.role,
-    required this.apellidos,
-    required this.nombres,
-    required this.email,
-    required this.edad,
-    required this.password,
-    required this.celular,
-    required this.direccion,
-    required this.curso,
-    this.img,
-  });
+    required String id,
+    required String role,
+    required String apellidos,
+    required String nombres,
+    required String email,
+    required int edad,
+    required String password,
+    required String celular,
+    required String direccion,
+    required String curso,
+    String? horarioAtencion,
+    String? area,
+    String? img,
+    required this.calificaciones,
+  }) : super(
+          id: id,
+          role: role,
+          apellidos: apellidos,
+          nombres: nombres,
+          email: email,
+          edad: edad,
+          password: password,
+          celular: celular,
+          direccion: direccion,
+          curso: curso,
+          horario_atencion: horarioAtencion,
+          area: area,
+          img: img,
+        );
 
-  final String? id;
-  final String? role;
-  final String? apellidos;
-  final String? nombres;
-  final String? email;
-  final int? edad;
-  final String? password;
-  final String? celular;
-  final String? curso;
-  final String? direccion;
-  final String? img;
-
-  factory ProfesorModel.fromJson(String id, Map<String, dynamic> json) =>
+  factory ProfesorModel.fromJson(
+    String id,
+    Map<String, dynamic> json,
+    List<Map<String, dynamic>> jsonNotes,
+  ) =>
       ProfesorModel(
         id: id,
         role: json['rol'],
@@ -37,6 +49,21 @@ class ProfesorModel {
         celular: json['celular'],
         curso: json['curso'],
         direccion: json['direccion'],
-        img: json['img'],
+        calificaciones:
+            List.from(jsonNotes.map((j) => Calificacion.fromJson(j))),
+      );
+}
+
+class Calificacion {
+  final String id;
+  final String curso;
+  final String materia;
+
+  Calificacion({required this.id, required this.curso, required this.materia});
+
+  factory Calificacion.fromJson(Map<String, dynamic> json) => Calificacion(
+        id: json['id'],
+        curso: json['curso'],
+        materia: json['materia'],
       );
 }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
+import 'package:ssalindemann/models/profesor_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/services/local_storage.dart';
 import 'package:ssalindemann/services/notifications_service.dart';
@@ -46,6 +47,22 @@ class LindemannApi {
     print(respStudent.docs);
     return List.from(
       respStudent.docs.map(
+        (document) => UserModel.fromJson(document.id, document.data()),
+      ),
+    );
+  }
+
+  static Future<List<UserModel>> httpGetProfesorCalificacionById(
+      String id) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final profesorRef = typeUsersRef.collection('profesor');
+    final respProfesor = await profesorRef.doc(id).collection('calificacion');
+    final respCalificaion = await respProfesor.get();
+    print(respCalificaion.docs);
+    return List.from(
+      respCalificaion.docs.map(
         (document) => UserModel.fromJson(document.id, document.data()),
       ),
     );
