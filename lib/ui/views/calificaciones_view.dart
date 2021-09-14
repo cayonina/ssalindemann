@@ -19,7 +19,7 @@ class CalificacionesView extends StatefulWidget {
 }
 
 class _CalificacionesViewState extends State<CalificacionesView> {
-  ProfesorModel? user;
+  UserModel? user;
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _CalificacionesViewState extends State<CalificacionesView> {
         userFormProvider.user = userDB;
         userFormProvider.formKey = new GlobalKey<FormState>();
         setState(() {
-          // this.user = userDB;
+          this.user = userDB;
         });
       } else {
         NavigationService.replaceTo('/dashboard/users');
