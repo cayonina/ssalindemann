@@ -25,7 +25,7 @@ class UserModel {
   final String? celular;
   final String? curso;
   final String? direccion;
-  final String? img;
+  String? img;
   final String? horario_atencion;
   final String? area;
 

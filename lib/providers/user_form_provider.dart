@@ -183,15 +183,27 @@ class UserFormProvider extends ChangeNotifier {
     }
   }
 
-  // Future<Usuario> uploadImage(String path, Uint8List bytes) async {
-  //   try {
-  //     final resp = await LindemannApi.uploadFile(path, bytes);
-  //     user = Usuario.fromMap(resp);
-  //     notifyListeners();
-  //     return user!;
-  //   } catch (e) {
-  //     print(e);
-  //     throw 'Error en user from provider';
-  //   }
-  // }
+  Future<String> uploadImage(
+    String userId,
+    String nameFile,
+    Uint8List bytes,
+  ) async {
+    // Subimos la imagen al storage, y obtenemos la url
+    // si la url esta vacia algo salio mal
+    // si la url no esta vacia se subio sin problemas
+
+    // el nombre de la imagen esta basado en el nombre del archivo y el id del usuario
+    final respUrl = await LindemannApi.uploadFileFirebase(
+      '$nameFile-$userId.jpg', 
+      bytes,
+    );
+    if (respUrl.isNotEmpty) {
+      // Actualizamos al usuario
+      user!.img = respUrl;
+      // Mandamos los datos actualizados a firebase
+      await LindemannApi.putEstudiante(userId, user!.toJson());
+      return respUrl;
+    }
+    return '';
+  }
 }
