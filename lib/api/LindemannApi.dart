@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
 import 'package:ssalindemann/models/profesor_model.dart';
@@ -296,5 +297,24 @@ class LindemannApi {
       print(e);
       throw ('Error en el PUT $e');
     }
+  }
+
+  static Future<String> uploadFileFirebase(
+    String nameFile,
+    Uint8List bytes,
+  ) async {
+    var url = '';
+    try {
+      final snapashot = await FirebaseStorage.instance
+          .ref('profiles/$nameFile')
+          .putData(bytes);
+
+      if (snapashot.state == TaskState.success) {
+        url = await snapashot.ref.getDownloadURL();
+      }
+    } on FirebaseException catch (e) {
+      print('==== EXCEPTION ===== $e ===');
+    }
+    return url;
   }
 }

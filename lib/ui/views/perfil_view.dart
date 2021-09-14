@@ -367,20 +367,25 @@ class _AvatarContainer extends StatelessWidget {
                               allowMultiple: false,
                             );
 
-                            // if (result != null) {
-                            //   // PlatformFile file = result.files.first;
-                            //   NotificationsService.showBusyIndicator(context);
-                            //   final newUser =
-                            //       await userFormProvider.uploadImage(
-                            //           '/uploads/usuarios/${user.id}',
-                            //           result.files.first.bytes!);
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              NotificationsService.showBusyIndicator(context);
+                              final url = await userFormProvider.uploadImage(
+                                user.id!,
+                                file.name,
+                                file.bytes!,
+                              );
 
-                            //   Provider.of<UsersProvider>(context, listen: false)
-                            //       .refreshUser(newUser);
-                            //   Navigator.of(context).pop();
-                            // } else {
-                            //   // User canceled the picker
-                            // }
+                              if (url.isNotEmpty) {
+                                Provider.of<UserFormProvider>(
+                                  context,
+                                  listen: false,
+                                ).copyUserWith(img: url);
+                              }
+                              Navigator.of(context).pop();
+                            } else {
+                              // User canceled the picker
+                            }
                           },
                         ),
                       ),
