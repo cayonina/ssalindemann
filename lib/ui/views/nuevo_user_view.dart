@@ -33,6 +33,7 @@ class _NuevoUserViewState extends State<NuevoUserView> {
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
+
     userFormProvider.formKey = new GlobalKey<FormState>();
   }
 
@@ -295,9 +296,10 @@ class _AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
-    final user = userFormProvider.user;
-    final image = Image(image: AssetImage('no-image.jpg'));
-
+    final user = userFormProvider.user!;
+    final image = (user.img == null)
+        ? Image(image: AssetImage('no-image.jpg'))
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
     return WhiteCard(
         width: 250,
         child: Container(
@@ -343,21 +345,25 @@ class _AvatarContainer extends StatelessWidget {
                               allowedExtensions: ['jpg', 'jpeg', 'png'],
                               allowMultiple: false,
                             );
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              NotificationsService.showBusyIndicator(context);
+                              final url = await userFormProvider.uploadImage(
+                                user.id!,
+                                file.name,
+                                file.bytes!,
+                              );
 
-                            // if (result != null) {
-                            //   // PlatformFile file = result.files.first;
-                            //   NotificationsService.showBusyIndicator(context);
-                            //   final newUser =
-                            //       await userFormProvider.uploadImage(
-                            //           '/uploads/usuarios/${user.id}',
-                            //           result.files.first.bytes!);
-
-                            //   Provider.of<UsersProvider>(context, listen: false)
-                            //       .refreshUser(newUser);
-                            //   Navigator.of(context).pop();
-                            // } else {
-                            //   // User canceled the picker
-                            // }
+                              if (url.isNotEmpty) {
+                                Provider.of<UserFormProvider>(
+                                  context,
+                                  listen: false,
+                                ).copyUserWith(img: url);
+                              }
+                              Navigator.of(context).pop();
+                            } else {
+                              // User canceled the picker
+                            }
                           },
                         ),
                       ),
@@ -369,7 +375,7 @@ class _AvatarContainer extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                user?.nombres ?? "",
+                user.nombres ?? "",
                 style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],

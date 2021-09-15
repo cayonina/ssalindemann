@@ -194,7 +194,7 @@ class UserFormProvider extends ChangeNotifier {
 
     // el nombre de la imagen esta basado en el nombre del archivo y el id del usuario
     final respUrl = await LindemannApi.uploadFileFirebase(
-      '$nameFile-$userId.jpg', 
+      '$nameFile-$userId.jpg',
       bytes,
     );
     if (respUrl.isNotEmpty) {
@@ -202,6 +202,30 @@ class UserFormProvider extends ChangeNotifier {
       user!.img = respUrl;
       // Mandamos los datos actualizados a firebase
       await LindemannApi.putEstudiante(userId, user!.toJson());
+      return respUrl;
+    }
+    return '';
+  }
+
+  Future<String> uploadImageProfesor(
+    String userId,
+    String nameFile,
+    Uint8List bytes,
+  ) async {
+    // Subimos la imagen al storage, y obtenemos la url
+    // si la url esta vacia algo salio mal
+    // si la url no esta vacia se subio sin problemas
+
+    // el nombre de la imagen esta basado en el nombre del archivo y el id del usuario
+    final respUrl = await LindemannApi.uploadFileFirebase(
+      '$nameFile-$userId.jpg',
+      bytes,
+    );
+    if (respUrl.isNotEmpty) {
+      // Actualizamos al usuario
+      user!.img = respUrl;
+      // Mandamos los datos actualizados a firebase
+      await LindemannApi.putProfesor(userId, user!.toJson());
       return respUrl;
     }
     return '';

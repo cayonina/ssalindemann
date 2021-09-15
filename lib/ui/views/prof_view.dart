@@ -381,6 +381,26 @@ class _AvatarContainer extends StatelessWidget {
                               allowMultiple: false,
                             );
 
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              NotificationsService.showBusyIndicator(context);
+                              final url =
+                                  await userFormProvider.uploadImageProfesor(
+                                user.id!,
+                                file.name,
+                                file.bytes!,
+                              );
+
+                              if (url.isNotEmpty) {
+                                Provider.of<UserFormProvider>(
+                                  context,
+                                  listen: false,
+                                ).copyUserWith(img: url);
+                              }
+                              Navigator.of(context).pop();
+                            } else {
+                              // User canceled the picker
+                            }
                             // if (result != null) {
                             //   // PlatformFile file = result.files.first;
                             //   NotificationsService.showBusyIndicator(context);

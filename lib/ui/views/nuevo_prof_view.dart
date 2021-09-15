@@ -312,8 +312,10 @@ class _AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
-    final user = userFormProvider.user;
-    final image = Image(image: AssetImage('no-image.jpg'));
+    final user = userFormProvider.user!;
+    final image = (user.img == null)
+        ? Image(image: AssetImage('no-image.jpg'))
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
 
     return WhiteCard(
         width: 250,
@@ -361,6 +363,26 @@ class _AvatarContainer extends StatelessWidget {
                               allowMultiple: false,
                             );
 
+                            if (result != null) {
+                              PlatformFile file = result.files.first;
+                              NotificationsService.showBusyIndicator(context);
+                              final url =
+                                  await userFormProvider.uploadImageProfesor(
+                                user.id!,
+                                file.name,
+                                file.bytes!,
+                              );
+
+                              if (url.isNotEmpty) {
+                                Provider.of<UserFormProvider>(
+                                  context,
+                                  listen: false,
+                                ).copyUserWith(img: url);
+                              }
+                              Navigator.of(context).pop();
+                            } else {
+                              // User canceled the picker
+                            }
                             // if (result != null) {
                             //   // PlatformFile file = result.files.first;
                             //   NotificationsService.showBusyIndicator(context);
@@ -386,7 +408,7 @@ class _AvatarContainer extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                user?.nombres ?? "",
+                user.nombres ?? "",
                 style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],
