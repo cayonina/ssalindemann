@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ssalindemann/datatables/calificaciones_datasource.dart';
 import 'package:ssalindemann/models/profesor_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
+import 'package:ssalindemann/providers/profesor_provider.dart';
 import 'package:ssalindemann/providers/user_form_provider.dart';
 import 'package:ssalindemann/providers/users_provider.dart';
+import 'package:ssalindemann/router/router.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
+import 'package:ssalindemann/ui/buttons/custom_icon_button.dart';
 
 import 'package:ssalindemann/ui/cards/white_cards.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
@@ -19,50 +23,47 @@ class CalificacionesView extends StatefulWidget {
 }
 
 class _CalificacionesViewState extends State<CalificacionesView> {
-  UserModel? user;
-  @override
-  void initState() {
-    super.initState();
-    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final userFormProvider =
-        Provider.of<UserFormProvider>(context, listen: false);
-    // REMPLAZAR EL ID QUE ESTA EN SESION
-    usersProvider.getUserById(widget.uid).then((userDB) {
-      if (userDB != null) {
-        userFormProvider.user = userDB;
-        userFormProvider.formKey = new GlobalKey<FormState>();
-        setState(() {
-          this.user = userDB;
-        });
-      } else {
-        NavigationService.replaceTo('/dashboard/users');
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    this.user = null;
-    final userFormProvider =
-        Provider.of<UserFormProvider>(context, listen: false).user = null;
-    super.dispose();
-  }
-
   Widget build(BuildContext context) {
+    final profesorProvider = Provider.of<ProfesorProvider>(context);
+
+    profesorProvider.getPaginatedCalificacionesbyId(widget.uid);
+
+    // final profDB = profesorProvider.getPaginatedProfesorbyArea(widget.area);
+    final calificacionDataSource = new CalificionesDataSource(
+        profesorProvider.calificaciones, context, widget.uid);
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: ListView(
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-            'Calificaciones View',
+            'Cursos a Calificar',
             style: CustomLabels.h1,
+          ),
+          Text(
+            widget.uid,
+            style: CustomLabels.h2,
           ),
           SizedBox(
             height: 10,
           ),
-          WhiteCard(
-              title: 'Sales statistics',
-              child: Text('Hola Mundo ' + user!.apellidos!))
+          PaginatedDataTable(
+            header: Container(),
+            columns: [
+              DataColumn(
+                label: Text('Curso'),
+              ),
+              DataColumn(
+                label: Text('Materia'),
+              ),
+              DataColumn(label: Text('Acciones')),
+            ],
+            // source: usersDatSource,
+            onPageChanged: (page) {
+              print('page $page');
+            },
+            source: calificacionDataSource,
+          )
         ],
       ),
     );

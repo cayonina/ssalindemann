@@ -6,19 +6,20 @@ import 'package:ssalindemann/providers/providers.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
 
 class CalificionesDataSource extends DataTableSource {
-  final List<ProfesorModel> users;
+  final List<Calificacion> calificaciones;
   final BuildContext context;
-  final String area;
-  CalificionesDataSource(this.users, this.context, this.area);
+  final String uid;
+  CalificionesDataSource(this.calificaciones, this.context, this.uid);
 
   @override
   DataRow getRow(int index) {
-    final ProfesorModel user = users[index];
+    final Calificacion calificacion = calificaciones[index];
 
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell(Text(user.curso!)),
+        DataCell(Text(calificacion.materia)),
+        DataCell(Text(calificacion.curso)),
         // DataCell(Text(user.materia!)),
 
         DataCell(
@@ -29,7 +30,7 @@ class CalificionesDataSource extends DataTableSource {
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(
-                      '/dashboard/cursos/${user.curso}');
+                      '/dashboard/cursos/${calificacion.curso}');
                 },
               ),
             ],
@@ -45,7 +46,7 @@ class CalificionesDataSource extends DataTableSource {
 
   @override
   // TODO: implement rowCount
-  int get rowCount => this.users.length;
+  int get rowCount => this.calificaciones.length;
 
   @override
   // TODO: implement selectedRowCount

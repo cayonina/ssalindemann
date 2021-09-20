@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ssalindemann/providers/sidemenu_provider.dart';
 import 'package:ssalindemann/ui/shared/widgets/navbar_avatar.dart';
 import 'package:ssalindemann/ui/shared/widgets/notifications_indicator.dart';
@@ -24,14 +25,22 @@ class Navbar extends StatelessWidget {
                 onPressed: () => SideMenuProvider.openMenu()),
           ],
           SizedBox(
-            width: 5,
+            width: 10,
           ),
           // Search Input
           if (size.width > 390)
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 250),
-              child: SearchText(),
-            ),
+                constraints: BoxConstraints(maxWidth: 270),
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Text(
+                    'S.S.A. Enrique Lindemann Lindemann B',
+                    style: GoogleFonts.raleway(
+                        color: Colors.brown[900],
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
 
           Spacer(),
           NotificationsIndicator(),
