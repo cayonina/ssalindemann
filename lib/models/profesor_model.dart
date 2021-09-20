@@ -55,11 +55,11 @@ class ProfesorModel extends UserModel {
 }
 
 class Calificacion {
-  final String id;
+  final String? id;
   final String curso;
   final String materia;
 
-  Calificacion({required this.id, required this.curso, required this.materia});
+  Calificacion({this.id, required this.curso, required this.materia});
 
   factory Calificacion.fromJson(Map<String, dynamic> json) => Calificacion(
         id: json['id'],
