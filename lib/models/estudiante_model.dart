@@ -55,9 +55,10 @@ class EstudianteModel extends UserModel {
 
 class Notes {
   final String id;
+  final String materia;
   final String commentOne, commentTwo, commentThree;
   final double totalNote;
-  final String subject;
+
   final List<double> notesOne, notesTwo, notesThree;
 
   Notes({
@@ -66,10 +67,10 @@ class Notes {
     required this.commentTwo,
     required this.commentThree,
     required this.totalNote,
-    required this.subject,
     required this.notesOne,
     required this.notesTwo,
     required this.notesThree,
+    required this.materia,
   });
 
   factory Notes.fromJson(Map<String, dynamic> json) => Notes(
@@ -77,7 +78,7 @@ class Notes {
         commentOne: json['comentario1'],
         commentTwo: json['comentario2'],
         commentThree: json['comentario3'],
-        subject: json['materia'],
+        materia: json['materia'],
         totalNote: json['notafinal'] / 1,
         notesOne: List.from(json['notas1'].map((value) => value / 1)),
         notesTwo: List.from(json['notas2'].map((value) => value / 1)),

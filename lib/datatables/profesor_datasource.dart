@@ -54,26 +54,30 @@ class ProfesorDataSource extends DataTableSource {
                   color: Colors.red.withOpacity(0.8),
                 ),
                 onPressed: () {
-                  final dialog = AlertDialog(
-                    title: Text('¿Esta seguro de borrarlo?'),
-                    content: Text('¿Borrar Definitivamente ${user.nombres}?'),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('No')),
-                      TextButton(
-                          onPressed: () async {
-                            await Provider.of<ProfesorProvider>(context,
-                                    listen: false)
-                                .deleteProfesor(user.id!);
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Si, borrar')),
-                    ],
-                  );
-                  showDialog(context: context, builder: (_) => dialog);
+                  // INTENTO DE RESTRINGIR LOS ROLES
+                  if (user.role != 'Estudiante') {
+                    final dialog = AlertDialog(
+                      title: Text('¿Esta seguro de borrarlo?'),
+                      content: Text('¿Borrar Definitivamente ${user.nombres}?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('No')),
+                        TextButton(
+                            onPressed: () async {
+                              await Provider.of<ProfesorProvider>(context,
+                                      listen: false)
+                                  .deleteProfesor(user.id!);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Si, borrar')),
+                      ],
+                    );
+
+                    showDialog(context: context, builder: (_) => dialog);
+                  }
                 },
               ),
             ],

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ssalindemann/api/LindemannApi.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/http/users_response.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/models/usuario.dart';
 
 class UsersProvider extends ChangeNotifier {
   List<UserModel> users = [];
+  List<Notes> notas = [];
   bool isLoading = true;
   bool ascending = true;
   int? sortColumnIndex;
@@ -37,6 +39,16 @@ class UsersProvider extends ChangeNotifier {
     print(resp);
     this.users = [...resp];
     print(this.users.length);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  getPaginatedNotasbyId(String uid) async {
+    print(uid + "aqui calificaciones");
+    // peticion http
+    final resp = await LindemannApi.httpGetEstudianteNotasById(uid);
+    this.notas = [...resp];
+    print(this.notas.length);
     isLoading = false;
     notifyListeners();
   }

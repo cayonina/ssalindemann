@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/providers/providers.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
 
 class NotasDataSource extends DataTableSource {
-  final List<UserModel> users;
+  final List<Notes> notas;
   final BuildContext context;
   final String area;
-  NotasDataSource(this.users, this.context, this.area);
+  NotasDataSource(this.notas, this.context, this.area);
 
   @override
   DataRow getRow(int index) {
-    final UserModel user = users[index];
-
-    final image = (user.img == null)
-        ? Image(
-            image: AssetImage('no-image.jpg'),
-            width: 35,
-            height: 35,
-          )
-        : FadeInImage.assetNetwork(
-            placeholder: 'loader.gif',
-            image: user.img!,
-            width: 35,
-            height: 35,
-          );
+    final Notes nota = notas[index];
 
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell(ClipOval(
-          child: image,
-        )),
-        DataCell(Text(user.apellidos!)),
-        DataCell(Text(user.nombres!)),
-        DataCell(Text(user.area!)),
-        DataCell(Text(user.celular!)),
+        DataCell(Text(nota.materia)),
+
         // DataCell(
         //   Row(
         //     children: [
@@ -89,7 +72,7 @@ class NotasDataSource extends DataTableSource {
 
   @override
   // TODO: implement rowCount
-  int get rowCount => this.users.length;
+  int get rowCount => this.notas.length;
 
   @override
   // TODO: implement selectedRowCount
