@@ -50,7 +50,7 @@ class ProfesorProvider extends ChangeNotifier {
     // peticion http
     final resp = await LindemannApi.httpGetProfesorCalificaionesbyId(uid);
     this.calificaciones = [...resp];
-    print(this.users.length);
+    print(this.calificaciones.length);
     isLoading = false;
     notifyListeners();
   }

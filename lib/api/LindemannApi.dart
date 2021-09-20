@@ -101,7 +101,7 @@ class LindemannApi {
     );
   }
 
-  static Future<List<UserModel>> httpGetProfesorCalificaionesbyId(
+  static Future<List<Calificacion>> httpGetProfesorCalificaionesbyId(
       String uid) async {
     print('APII: ' + uid);
     final firebase =
