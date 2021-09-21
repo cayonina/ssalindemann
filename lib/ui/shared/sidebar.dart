@@ -68,10 +68,12 @@ class Sidebar extends StatelessWidget {
           ),
 
           MenuItem(
-            isActive: sideMenuProvider.currentPage == Flurorouter.notasRoute,
+            isActive:
+                sideMenuProvider.currentPage == Flurorouter.tablaNotasRoute,
             text: 'Notas',
             icon: Icons.grade_outlined,
-            onPressed: () => navigateTo(Flurorouter.notasRoute),
+            onPressed: () =>
+                NavigationService.replaceTo('/dashboard/tablanotas/${user.id}'),
           ),
 
           MenuItem(

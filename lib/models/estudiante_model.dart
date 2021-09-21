@@ -54,7 +54,7 @@ class EstudianteModel extends UserModel {
 }
 
 class Notes {
-  final String id;
+  final String? id;
   final String materia;
   final String commentOne, commentTwo, commentThree;
   final double totalNote;
@@ -62,7 +62,7 @@ class Notes {
   final List<double> notesOne, notesTwo, notesThree;
 
   Notes({
-    required this.id,
+    this.id,
     required this.commentOne,
     required this.commentTwo,
     required this.commentThree,

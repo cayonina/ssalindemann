@@ -26,7 +26,7 @@ class CalificionesDataSource extends DataTableSource {
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.edit_outlined),
+                icon: Icon(Icons.grade_outlined),
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(

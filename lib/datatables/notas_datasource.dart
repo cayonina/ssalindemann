@@ -8,8 +8,8 @@ import 'package:ssalindemann/services/navigation_services.dart';
 class NotasDataSource extends DataTableSource {
   final List<Notes> notas;
   final BuildContext context;
-  final String area;
-  NotasDataSource(this.notas, this.context, this.area);
+  final String uid;
+  NotasDataSource(this.notas, this.context, this.uid);
 
   @override
   DataRow getRow(int index) {
@@ -19,49 +19,19 @@ class NotasDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(Text(nota.materia)),
-
-        // DataCell(
-        //   Row(
-        //     children: [
-        //       IconButton(
-        //         icon: Icon(Icons.edit_outlined),
-        //         onPressed: () {
-        //           // todo navegar a una nueva pantalla con la información del usuario
-        //           NavigationService.replaceTo(
-        //               '/dashboard/profesor/${user.area}/${user.id}');
-        //         },
-        //       ),
-        //       IconButton(
-        //         icon: Icon(
-        //           Icons.delete_outlined,
-        //           color: Colors.red.withOpacity(0.8),
-        //         ),
-        //         onPressed: () {
-        //           final dialog = AlertDialog(
-        //             title: Text('¿Esta seguro de borrarlo?'),
-        //             content: Text('¿Borrar Definitivamente ${user.nombres}?'),
-        //             actions: [
-        //               TextButton(
-        //                   onPressed: () {
-        //                     Navigator.of(context).pop();
-        //                   },
-        //                   child: Text('No')),
-        //               TextButton(
-        //                   onPressed: () async {
-        //                     await Provider.of<ProfesorProvider>(context,
-        //                             listen: false)
-        //                         .deleteProfesor(user.id!);
-        //                     Navigator.of(context).pop();
-        //                   },
-        //                   child: Text('Si, borrar')),
-        //             ],
-        //           );
-        //           showDialog(context: context, builder: (_) => dialog);
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        DataCell(
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.grade_sharp),
+                onPressed: () {
+                  // todo navegar a una nueva pantalla con la información del usuario
+                  NavigationService.replaceTo('/dashboard/notas/${nota.id}');
+                },
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

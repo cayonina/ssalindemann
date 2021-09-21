@@ -14,6 +14,7 @@ import 'package:ssalindemann/ui/views/nuevo_user_view.dart';
 import 'package:ssalindemann/ui/views/perfil_view.dart';
 import 'package:ssalindemann/ui/views/prof_view.dart';
 import 'package:ssalindemann/ui/views/profesores_view.dart';
+import 'package:ssalindemann/ui/views/tabla_notas_view.dart';
 import 'package:ssalindemann/ui/views/tabla_profesores_view.dart';
 import 'package:ssalindemann/ui/views/user_view.dart';
 import 'package:ssalindemann/ui/views/users_view.dart';
@@ -84,6 +85,22 @@ class DashboardHandlers {
       if (params['uid']?.first != null) {
         print("aquiiiiiiiiiiiiiiiiiiii " + params['uid']!.first);
         return CalificacionesView(uid: params['uid']!.first);
+      } else {
+        return DashboardView();
+      }
+    } else
+      return LoginView();
+  });
+
+  static Handler tablanotas = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.tablaNotasRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['uid']?.first != null) {
+        print("aquiiiiiiiiiiiiiiiiiiii " + params['uid']!.first);
+        return TablaNotasView(uid: params['uid']!.first);
       } else {
         return DashboardView();
       }
