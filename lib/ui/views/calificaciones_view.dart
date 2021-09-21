@@ -27,7 +27,7 @@ class _CalificacionesViewState extends State<CalificacionesView> {
     final profesorProvider = Provider.of<ProfesorProvider>(context);
 
     profesorProvider.getPaginatedCalificacionesbyId(widget.uid);
-    print('==== AQUI SE DA UN CICLO INFINITO ===== ===');
+
     // final profDB = profesorProvider.getPaginatedProfesorbyArea(widget.area);
     final calificacionDataSource = new CalificionesDataSource(
         profesorProvider.calificaciones, context, widget.uid);
