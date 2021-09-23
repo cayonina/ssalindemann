@@ -68,6 +68,7 @@ class DashboardHandlers {
         .setCurrenPageUrl(Flurorouter.notasRoute);
     if (authProvider.authStatus == AuthStatus.authenticated) {
       print(params);
+      print('==== HANDLER NOTAS ===== $params ===');
       if (params['uid']?.first != null) {
         return NotasView(uid: params['uid']!.first);
       } else {

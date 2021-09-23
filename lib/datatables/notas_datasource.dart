@@ -26,7 +26,7 @@ class NotasDataSource extends DataTableSource {
                 icon: Icon(Icons.grade_sharp),
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
-                  NavigationService.replaceTo('/dashboard/notas/${nota.id}');
+                  NavigationService.replaceTo('/dashboard/notas/${nota.id}&${1+2}');
                 },
               ),
             ],
