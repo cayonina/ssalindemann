@@ -270,6 +270,33 @@ class LindemannApi {
         .catchError((error) => print('Falla al añadir estudiante $error'));
   }
 
+  static Future putNotaEstudiante(
+      String id, Map<String, dynamic> data, String uid) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    final respStudent = await studentsRef.doc(uid).collection('notas');
+    respStudent
+        .doc(id)
+        .update(data)
+        .then((value) => print("NOTA ACTUALIZADO"))
+        .catchError((error) => print("NO ACTUALIZA"));
+  }
+
+  static Future putNuevaNotaEstudiante(
+      Map<String, dynamic> data, String uid) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final studentsRef = typeUsersRef.collection('estudiante');
+    final respStudent = await studentsRef.doc(uid).collection('notas');
+    respStudent
+        .add(data)
+        .then((value) => print('Nota Agregada'))
+        .catchError((error) => print('Falla al añadir nota estudiante $error'));
+  }
+
   static Future putProfesor(String id, Map<String, dynamic> data) async {
     final firebase =
         await FirebaseFirestore.instance.collection('usuarios').get();

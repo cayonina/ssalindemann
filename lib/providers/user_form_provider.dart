@@ -2,11 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:ssalindemann/api/LindemannApi.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/models/usuario.dart';
 
 class UserFormProvider extends ChangeNotifier {
   UserModel? user;
+  Notes? estudianteNota;
   late GlobalKey<FormState> formKey;
 
   // hacer pensar como actualizar usuario del provider
@@ -229,5 +231,101 @@ class UserFormProvider extends ChangeNotifier {
       return respUrl;
     }
     return '';
+  }
+
+  copyEstudianteNotaWith({
+    String? id,
+    String? materia,
+    String? commentOne,
+    String? commentTwo,
+    String? commentThree,
+    List<double>? notesOne,
+    List<double>? notesTwo,
+    List<double>? notesThree,
+    double? totalNote,
+  }) {
+    estudianteNota = new Notes(
+        commentOne: commentOne ?? this.estudianteNota!.commentOne,
+        commentTwo: commentTwo ?? this.estudianteNota!.commentTwo,
+        commentThree: commentThree ?? this.estudianteNota!.commentThree,
+        materia: materia ?? this.estudianteNota!.materia,
+        notesOne: notesOne ?? this.estudianteNota!.notesOne,
+        notesTwo: notesTwo ?? this.estudianteNota!.notesTwo,
+        notesThree: notesThree ?? this.estudianteNota!.notesThree,
+        totalNote: totalNote ?? this.estudianteNota!.totalNote,
+        id: id ?? this.estudianteNota!.id);
+    notifyListeners();
+  }
+
+  copyEstudianteNotaWithCreate({
+    String? id,
+    String? materia,
+    String? commentOne,
+    String? commentTwo,
+    String? commentThree,
+    List<double>? notesOne,
+    List<double>? notesTwo,
+    List<double>? notesThree,
+    double? totalNote,
+  }) {
+    estudianteNota = new Notes(
+        commentOne: commentOne ?? this.estudianteNota!.commentOne,
+        commentTwo: commentTwo ?? this.estudianteNota!.commentTwo,
+        commentThree: commentThree ?? this.estudianteNota!.commentThree,
+        materia: materia ?? this.estudianteNota!.materia,
+        notesOne: notesOne ?? this.estudianteNota!.notesOne,
+        notesTwo: notesTwo ?? this.estudianteNota!.notesTwo,
+        notesThree: notesThree ?? this.estudianteNota!.notesThree,
+        totalNote: totalNote ?? this.estudianteNota!.totalNote,
+        id: id ?? this.estudianteNota!.id);
+    notifyListeners();
+  }
+
+  createNotaEstudiante() async {
+    if (!this._validForm()) return false;
+    print(estudianteNota);
+    final data = {
+      'comentario1': estudianteNota!.commentOne,
+      'comentario2': estudianteNota!.commentTwo,
+      'comentario3': estudianteNota!.commentThree,
+      'materia': estudianteNota!.materia,
+      'notafinal': estudianteNota!.totalNote,
+      'notas1': estudianteNota!.notesOne,
+      'notas2': estudianteNota!.commentTwo,
+      'notas3': estudianteNota!.commentThree,
+    };
+    print(data);
+    try {
+      final resp = await LindemannApi.putNuevaNotaEstudiante(data, user!.id!);
+      print(resp);
+      return true;
+    } catch (e) {
+      print('error en createNotaEstudiante: $e');
+      return false;
+    }
+  }
+
+  updateNotaEstudiante() async {
+    if (!this._validForm()) return false;
+    print(estudianteNota);
+    final data = {
+      'comentario1': estudianteNota!.commentOne,
+      'comentario2': estudianteNota!.commentTwo,
+      'comentario3': estudianteNota!.commentThree,
+      'materia': estudianteNota!.materia,
+      'notafinal': estudianteNota!.totalNote,
+      'notas1': estudianteNota!.notesOne,
+      'notas2': estudianteNota!.commentTwo,
+      'notas3': estudianteNota!.commentThree,
+    };
+    print(data);
+    try {
+      final resp = await LindemannApi.putNotaEstudiante(data, user!.id!);
+      print(resp);
+      return true;
+    } catch (e) {
+      print('error en updateNotaEstudiante: $e');
+      return false;
+    }
   }
 }

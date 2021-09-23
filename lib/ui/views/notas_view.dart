@@ -32,6 +32,7 @@ class _NotasViewState extends State<NotasView> {
   @override
   void initState() {
     super.initState();
+    // AQUI ENLAZAR CON LOS PROVIDER
     // final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     // final userFormProvider =
     //     Provider.of<UserFormProvider>(context, listen: false);
@@ -96,13 +97,13 @@ class _UserViewForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final userFormProvider = Provider.of<UserFormProvider>(context);
-    // final user = userFormProvider.user!;
-
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final estudianteNota = userFormProvider.estudianteNota!;
+    final List<double> notas1, notas2, notas3;
     return WhiteCard(
-        title: 'Calificacion Materia de Física',
+        title: 'Calificacion Materia de ' + estudianteNota.materia,
         child: Form(
-          // key: userFormProvider.formKey,
+          key: userFormProvider.formKey,
           autovalidateMode: AutovalidateMode.always,
           child: Column(
             children: [
@@ -127,6 +128,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Preliminar',
                           activado: true),
+                      onChanged: (value) {
+                        double nota = double.parse(value);
+                        notas1.add(nota);
+                        userFormProvider.copyEstudianteNotaWith(
+                            notesOne: notas1);
+                      },
                     )),
                     Flexible(
                       child: SizedBox(
@@ -140,6 +147,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Examen Final',
                           activado: true),
+                      onChanged: (value) {
+                        double nota = double.parse(value);
+                        notas1.add(nota);
+                        userFormProvider.copyEstudianteNotaWith(
+                            notesOne: notas1);
+                      },
                     )),
                     Flexible(
                       child: SizedBox(
@@ -153,6 +166,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Nota Parcial',
                           activado: false),
+                      onChanged: (value) {
+                        double nota = double.parse(value);
+                        notas1.add(notas1.elementAt(0) + notas1.elementAt(1));
+                        userFormProvider.copyEstudianteNotaWith(
+                            notesOne: notas1);
+                      },
                     )),
                   ],
                 ),
@@ -165,6 +184,9 @@ class _UserViewForm extends StatelessWidget {
                       icon: Icons.access_alarm_outlined,
                       label: 'Comentario 1er Trimestre',
                       activado: true),
+                  onChanged: (value) {
+                    userFormProvider.copyEstudianteNotaWith(commentOne: value);
+                  },
                 ),
               ]),
               SizedBox(
@@ -227,6 +249,9 @@ class _UserViewForm extends StatelessWidget {
                     icon: Icons.access_alarm_outlined,
                     label: 'Comentario 2do Trimestre',
                     activado: true),
+                onChanged: (value) {
+                  userFormProvider.copyEstudianteNotaWith(commentTwo: value);
+                },
               ),
               SizedBox(
                 height: 20,
@@ -287,6 +312,9 @@ class _UserViewForm extends StatelessWidget {
                     icon: Icons.access_alarm_outlined,
                     label: 'Comentario 3er Trimestre',
                     activado: true),
+                onChanged: (value) {
+                  userFormProvider.copyEstudianteNotaWith(commentThree: value);
+                },
               ),
               SizedBox(
                 height: 35,
@@ -303,8 +331,9 @@ class _UserViewForm extends StatelessWidget {
                 constraints: BoxConstraints(maxWidth: 100),
                 child: ElevatedButton(
                     onPressed: () async {
-                      // postear, actualizar usuario
-                      // final saved = await userFormProvider.updateUser();
+                      // Guardar la nota escrita
+                      // AQUI SE DEBE CREAR LA NOTA SOLO SI ES PRIMERA VEZ LUEGO YA ACTUALIZAR
+                      // final saved = await userFormProvider.createNotaEstudiante();
                       // if (saved) {
                       //   NotificationsService.showSnackbar(
                       //       'Usuario Actualizado');
