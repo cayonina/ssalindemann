@@ -14,7 +14,7 @@ import 'package:ssalindemann/ui/inputs/custom_inputs.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
 import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 
-// ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE 
+// ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE
 // PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
   final String? uid;
@@ -32,7 +32,6 @@ class NotasView extends StatefulWidget {
 
 class _NotasViewState extends State<NotasView> {
   Notes? user;
-  
 
   @override
   void initState() {
@@ -45,7 +44,7 @@ class _NotasViewState extends State<NotasView> {
     // usersProvider.getUserById(widget.uid).then((userDB) {
     //   if (userDB != null) {
     //     userFormProvider.user = userDB;
-        userFormProvider.formKey = new GlobalKey<FormState>();
+    userFormProvider.formKey = new GlobalKey<FormState>();
     //     setState(() {
     //       this.user = userDB;
     //     });
@@ -71,11 +70,7 @@ class _NotasViewState extends State<NotasView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-<<<<<<< HEAD
             'Calificacion materia' + widget.materia!,
-=======
-            'Calificacion del Estudiante ${widget.uid}',
->>>>>>> f2459ba05dd16615e8e5c985e629e4bb9d1a7948
             style: CustomLabels.h1,
           ),
           SizedBox(
