@@ -320,8 +320,8 @@ class UserFormProvider extends ChangeNotifier {
     };
     print(data);
     try {
-      final resp = await LindemannApi.putNotaEstudiante(data, user!.id!);
-      print(resp);
+      // final resp = await LindemannApi.putNotaEstudiante(data, user!.id!);
+      // print(resp);
       return true;
     } catch (e) {
       print('error en updateNotaEstudiante: $e');

@@ -18,7 +18,7 @@ class NotasDataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell(Text(nota.materia)),
+        DataCell(Text(nota.materia!)),
         DataCell(
           Row(
             children: [
@@ -26,7 +26,8 @@ class NotasDataSource extends DataTableSource {
                 icon: Icon(Icons.grade_sharp),
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
-                  NavigationService.replaceTo('/dashboard/notas/${nota.id}');
+                  NavigationService.replaceTo(
+                      '/dashboard/notas/${uid}/${nota.materia}');
                 },
               ),
             ],

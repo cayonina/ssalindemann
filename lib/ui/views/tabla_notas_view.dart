@@ -57,12 +57,9 @@ class _TablaNotasViewState extends State<TablaNotasView> {
 
             columns: [
               DataColumn(
-                  label: Text('Materia'),
-                  onSort: (colIndex, _) {
-                    userProvider.sortColumnIndex = colIndex;
-                    userProvider.sort<String>((user) => user.apellidos!);
-                  }),
-              DataColumn(label: Text('Acciones')),
+                label: Text('Materia'),
+              ),
+              DataColumn(label: Text('Ver Calificación')),
             ],
             // source: usersDatSource,
             onPageChanged: (page) {

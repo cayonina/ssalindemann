@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 
 import 'package:ssalindemann/models/user_model.dart';
 
@@ -15,10 +16,12 @@ import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 
 // ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
-  final String uid;
+  final String? uid;
+  final String? materia;
   const NotasView({
     Key? key,
     required this.uid,
+    this.materia,
     // required this.uid
   }) : super(key: key);
 
@@ -27,7 +30,8 @@ class NotasView extends StatefulWidget {
 }
 
 class _NotasViewState extends State<NotasView> {
-  UserModel? user;
+  Notes? user;
+  
 
   @override
   void initState() {
@@ -66,7 +70,7 @@ class _NotasViewState extends State<NotasView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-            'Calificacion del Estudiante',
+            'Calificacion materia' + widget.materia!,
             style: CustomLabels.h1,
           ),
           SizedBox(
@@ -101,7 +105,7 @@ class _UserViewForm extends StatelessWidget {
     final estudianteNota = userFormProvider.estudianteNota!;
     final List<double> notas1, notas2, notas3;
     return WhiteCard(
-        title: 'Calificacion Materia de ' + estudianteNota.materia,
+        title: 'Boletin de Notas',
         child: Form(
           key: userFormProvider.formKey,
           autovalidateMode: AutovalidateMode.always,
@@ -128,12 +132,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Preliminar',
                           activado: true),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
+                      // onChanged: (value) {
+                      //   double nota = double.parse(value);
+                      //   notas1.add(nota);
+                      //   userFormProvider.copyEstudianteNotaWith(
+                      //       notesOne: notas1);
+                      // },
                     )),
                     Flexible(
                       child: SizedBox(
@@ -147,12 +151,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Examen Final',
                           activado: true),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
+                      // onChanged: (value) {
+                      //   double nota = double.parse(value);
+                      //   notas1.add(nota);
+                      //   userFormProvider.copyEstudianteNotaWith(
+                      //       notesOne: notas1);
+                      // },
                     )),
                     Flexible(
                       child: SizedBox(
@@ -166,12 +170,12 @@ class _UserViewForm extends StatelessWidget {
                           icon: Icons.access_alarm_outlined,
                           label: 'Nota Parcial',
                           activado: false),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(notas1.elementAt(0) + notas1.elementAt(1));
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
+                      // onChanged: (value) {
+                      //   double nota = double.parse(value);
+                      //   notas1.add(notas1.elementAt(0) + notas1.elementAt(1));
+                      //   userFormProvider.copyEstudianteNotaWith(
+                      //       notesOne: notas1);
+                      // },
                     )),
                   ],
                 ),

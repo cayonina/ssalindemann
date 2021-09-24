@@ -69,7 +69,10 @@ class DashboardHandlers {
     if (authProvider.authStatus == AuthStatus.authenticated) {
       print(params);
       if (params['uid']?.first != null) {
-        return NotasView(uid: params['uid']!.first);
+        return NotasView(
+          uid: params['uid']!.first,
+          materia: params['materia']!.first,
+        );
       } else {
         return CursosView();
       }
