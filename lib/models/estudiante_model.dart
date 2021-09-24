@@ -73,6 +73,18 @@ class Notes {
     required this.materia,
   });
 
+  Notes.fromEmpty({
+    this.id,
+    this.commentOne = '',
+    this.commentTwo = '',
+    this.commentThree = '',
+    this.totalNote = 0.0,
+    this.notesOne = const [],
+    this.notesTwo = const [],
+    this.notesThree = const [],
+    this.materia = '',
+  });
+
   factory Notes.fromJson(Map<String, dynamic> json) => Notes(
         id: json['id'],
         commentOne: json['comentario1'],

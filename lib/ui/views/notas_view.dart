@@ -14,7 +14,8 @@ import 'package:ssalindemann/ui/inputs/custom_inputs.dart';
 import 'package:ssalindemann/ui/labels/custom_labels.dart';
 import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 
-// ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
+// ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE 
+// PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
   final String? uid;
   final String? materia;
@@ -38,13 +39,13 @@ class _NotasViewState extends State<NotasView> {
     super.initState();
     // AQUI ENLAZAR CON LOS PROVIDER
     // final usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    // final userFormProvider =
-    //     Provider.of<UserFormProvider>(context, listen: false);
+    final userFormProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
 
     // usersProvider.getUserById(widget.uid).then((userDB) {
     //   if (userDB != null) {
     //     userFormProvider.user = userDB;
-    //     userFormProvider.formKey = new GlobalKey<FormState>();
+        userFormProvider.formKey = new GlobalKey<FormState>();
     //     setState(() {
     //       this.user = userDB;
     //     });
@@ -70,7 +71,11 @@ class _NotasViewState extends State<NotasView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
+<<<<<<< HEAD
             'Calificacion materia' + widget.materia!,
+=======
+            'Calificacion del Estudiante ${widget.uid}',
+>>>>>>> f2459ba05dd16615e8e5c985e629e4bb9d1a7948
             style: CustomLabels.h1,
           ),
           SizedBox(
@@ -95,15 +100,18 @@ class _NotasViewState extends State<NotasView> {
 }
 
 class _UserViewForm extends StatelessWidget {
-  const _UserViewForm({
+  _UserViewForm({
     Key? key,
   }) : super(key: key);
+
+  final notas1 = List.filled(3, 0.0);
+  final notas2 = List.filled(3, 0.0);
+  final notas3 = List.filled(3, 0.0);
 
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
-    final estudianteNota = userFormProvider.estudianteNota!;
-    final List<double> notas1, notas2, notas3;
+    final estudianteNota = userFormProvider.estudianteNota ?? Notes.fromEmpty();
     return WhiteCard(
         title: 'Boletin de Notas',
         child: Form(

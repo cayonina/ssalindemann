@@ -58,12 +58,16 @@ class LindemannApi {
         await FirebaseFirestore.instance.collection('usuarios').get();
     final typeUsersRef = firebase.docs.first.reference;
     final profesorRef = typeUsersRef.collection('estudiante');
-    final respProfesor = await profesorRef.doc(id).collection('notas');
+    final respProfesor = profesorRef.doc(id).collection('notas');
     final respNotas = await respProfesor.get();
     print(respNotas.docs);
     return List.from(
       respNotas.docs.map(
-        (document) => Notes.fromJson(document.data()),
+        (document) {
+          final tmpJson = document.data();
+          tmpJson['id'] = document.id;
+          return Notes.fromJson(tmpJson);
+        },
       ),
     );
   }
