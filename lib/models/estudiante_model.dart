@@ -1,7 +1,7 @@
 import 'user_model.dart';
 
 class EstudianteModel extends UserModel {
-  final List<Notes> notes;
+  final List<Notes>? notes;
   EstudianteModel({
     required String id,
     required String role,
