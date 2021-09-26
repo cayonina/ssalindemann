@@ -72,6 +72,38 @@ class LindemannApi {
     );
   }
 
+  static Future<Notes> httpGetNotaFromStudent({
+    required String idStudent,
+    required String idNota,
+  }) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    final document = await typeUsersRef
+        .collection('estudiante/$idStudent/notas')
+        .doc(idNota)
+        .get();
+
+    final tmpJson = document.data();
+    tmpJson!['id'] = document.id;
+
+    return Notes.fromJson(tmpJson);
+  }
+
+  static Future httpUpdateNotaFromStudent({
+    required String idStudent,
+    required String idNota,
+    required Notes note,
+  }) async {
+    final firebase =
+        await FirebaseFirestore.instance.collection('usuarios').get();
+    final typeUsersRef = firebase.docs.first.reference;
+    await typeUsersRef
+        .collection('estudiante/$idStudent/notas')
+        .doc(idNota)
+        .update(note.toJson());
+  }
+
   static Future<List<UserModel>> httpGetProfesorCalificacionById(
       String id) async {
     final firebase =

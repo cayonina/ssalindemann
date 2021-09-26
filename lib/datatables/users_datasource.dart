@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 import 'package:ssalindemann/providers/providers.dart';
 import 'package:ssalindemann/services/navigation_services.dart';
 
 class UsersDataSource extends DataTableSource {
   final List<UserModel> users;
+
   final BuildContext context;
   final String curso;
   UsersDataSource(this.users, this.context, this.curso);
@@ -80,6 +82,8 @@ class UsersDataSource extends DataTableSource {
                 onPressed: () {
                   // // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo('/dashboard/notas/${user.id}');
+                  // NavigationService.replaceTo(
+                  //     '/dashboard/notas/${user.id}/${nota.materia}/${nota.id}');
                 },
               ),
             ],

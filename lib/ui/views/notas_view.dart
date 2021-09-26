@@ -4,6 +4,7 @@ import 'package:ssalindemann/models/estudiante_model.dart';
 import 'package:ssalindemann/models/user_model.dart';
 
 import 'package:provider/provider.dart';
+import 'package:ssalindemann/providers/estudiante_notas_provider.dart';
 import 'package:ssalindemann/providers/providers.dart';
 
 import 'package:ssalindemann/services/navigation_services.dart';
@@ -17,13 +18,15 @@ import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 // ESTA SERA LA VISTA DONDE SE EDITARA LAS NOTAS EN CASO DE PROFESORES Y DONDE
 // PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
-  final String? uid;
-  // final String? materia;
+  final String uidEstudiante;
+  final String nombreMateria;
+  final String idNota;
+
   const NotasView({
     Key? key,
-    required this.uid,
-    // this.materia,
-    // required this.uid
+    required this.uidEstudiante,
+    required this.nombreMateria,
+    required this.idNota,
   }) : super(key: key);
 
   @override
@@ -35,62 +38,77 @@ class _NotasViewState extends State<NotasView> {
 
   @override
   void initState() {
+    //   super.initState();
+    //   // AQUI ENLAZAR CON LOS PROVIDER
+    //   final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    //   final userFormProvider =
+    //       Provider.of<UserFormProvider>(context, listen: false);
+
+    //   usersProvider.getPaginatedNotasbyId(widget.uid!).then((userDB) {
+    //     if (userDB != null) {
+    //       userFormProvider.estudianteNota = userDB;
+    //       userFormProvider.formKey = new GlobalKey<FormState>();
+    //       setState(() {
+    //         this.user = userDB;
+    //       });
+    //     } else {
+    //       print('==== ENTRA AQUI ===== REDIRECCIONA A USERS ===');
+    //       NavigationService.replaceTo('/dashboard/users');
+    //     }
+    //   });
     super.initState();
-    // AQUI ENLAZAR CON LOS PROVIDER
-    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final userFormProvider =
-        Provider.of<UserFormProvider>(context, listen: false);
-    print(widget.uid! + 'ESTE ID ESTA OBTENIENDOOO');
-    usersProvider.getPaginatedNotasbyId(widget.uid!).then((userDB) {
-      print(userDB);
-      userFormProvider.formKey = new GlobalKey<FormState>();
-      if (userDB != null) {
-        userFormProvider.estudianteNota = userDB;
-        setState(() {
-          this.user = userDB;
-        });
-      } else {
-        NavigationService.replaceTo('/dashboard/users');
-      }
+    WidgetsBinding.instance?.addPostFrameCallback((duration) {
+      final provider =
+          Provider.of<EstudianteNotasProvider>(context, listen: false);
+      provider.init(
+        idEstu: widget.uidEstudiante,
+        idNota: widget.idNota,
+      );
     });
   }
 
-  @override
-  void dispose() {
-    this.user = null;
-    final userFormProvider =
-        Provider.of<UserFormProvider>(context, listen: false).user = null;
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   this.user = null;
+  //   final userFormProvider =
+  //       Provider.of<UserFormProvider>(context, listen: false).user = null;
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EstudianteNotasProvider>(context);
+
+    // return Text(provider.loading ? 'true' : 'false');
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: ListView(
-        physics: ClampingScrollPhysics(),
-        children: [
-          Text(
-            'Calificacion materia ',
-            style: CustomLabels.h1,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          // if (user == null)
-          WhiteCard(
-            child: Column(
+      child: provider.loading
+          ? Center(child: CircularProgressIndicator())
+          : ListView(
+              physics: ClampingScrollPhysics(),
               children: [
+                Text(
+                  'Calificacion materia idEst ${widget.uidEstudiante} mate ${widget.nombreMateria} idNota ${widget.idNota}',
+                  style: CustomLabels.h1,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // if (user == null)
+                // WhiteCard(
+                //   child: Column(
+                //     children: [
                 _UserViewForm(),
-              ],
-              // child: CircularProgressIndicator(),
-            ),
-          ),
-          // if (user != null)
+                //     ],
+                //     // child: CircularProgressIndicator(),
+                //   ),
+                // ),
+                // if (user != null)
 
-          // Text('${user?.nombres}')
-        ],
-      ),
+                // Text('${user?.nombres}')
+              ],
+            ),
     );
   }
 }
@@ -100,124 +118,104 @@ class _UserViewForm extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final notas1 = List.filled(3, 0.0);
-  final notas2 = List.filled(3, 0.0);
-  final notas3 = List.filled(3, 0.0);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final userFormProvider = Provider.of<UserFormProvider>(context);
-    final estudianteNota = userFormProvider.estudianteNota ?? Notes.fromEmpty();
+    final provider = Provider.of<EstudianteNotasProvider>(
+      context,
+      listen: false,
+    );
+    // final userFormProvider = Provider.of<UserFormProvider>(context);
+    // final estudianteNota = userFormProvider.estudianteNota ?? Notes.fromEmpty();
     return WhiteCard(
-        title: 'Boletin de Notas' + estudianteNota.materia!,
+        title: 'Boletin de Notas',
         child: Form(
-          key: userFormProvider.formKey,
+          key: _formKey,
           autovalidateMode: AutovalidateMode.always,
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Notas del Primer Trimestre',
-                style: CustomLabels.h3,
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              // INI PRIMER TRIMESTRE
+              SizedBox(height: 20),
+              Text('Notas del Primer Trimestre', style: CustomLabels.h3),
+              SizedBox(height: 20),
               Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                        child: TextFormField(
-                      initialValue: estudianteNota.notesOne[0].toString(),
-                      decoration: CustomInputs.formNotasInputDecoration(
-                          hint: 'Preliminar',
-                          icon: Icons.access_alarm_outlined,
-                          label: 'Preliminar',
-                          activado: true),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
-                    )),
-                    Flexible(
-                      child: SizedBox(
-                        width: 10,
+                      child: TextFormField(
+                        initialValue: provider.notes.notesOne[0].toString(),
+                        decoration: CustomInputs.formNotasInputDecoration(
+                            hint: 'Preliminar',
+                            icon: Icons.access_alarm_outlined,
+                            label: 'Preliminar',
+                            activado: true),
+                        onChanged: (value) {
+                          double nota = double.parse(value);
+                          provider.notes.notesOne[0] = nota;
+                          // provider.updateUI();
+                        },
                       ),
                     ),
+                    Flexible(child: SizedBox(width: 10)),
                     Expanded(
-                        child: TextFormField(
-                      initialValue: estudianteNota.notesOne[1].toString(),
-                      decoration: CustomInputs.formNotasInputDecoration(
+                      child: TextFormField(
+                        initialValue: provider.notes.notesOne[1].toString(),
+                        decoration: CustomInputs.formNotasInputDecoration(
                           hint: 'Extamen Final',
                           icon: Icons.access_alarm_outlined,
                           label: 'Examen Final',
-                          activado: true),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
-                    )),
-                    Flexible(
-                      child: SizedBox(
-                        width: 10,
+                          activado: true,
+                        ),
+                        onChanged: (value) {
+                          double nota = double.parse(value);
+                          provider.notes.notesOne[1] = nota;
+                          // provider.updateUI();
+                        },
                       ),
                     ),
+                    Flexible(child: SizedBox(width: 10)),
                     Expanded(
-                        child: TextFormField(
-                      initialValue: estudianteNota.notesOne[2].toString(),
-                      decoration: CustomInputs.formNotasInputDecoration(
+                      child: TextFormField(
+                        initialValue: '${provider.notes.getNotaParcial1()}',
+                        decoration: CustomInputs.formNotasInputDecoration(
                           hint: 'Nota Parcial',
                           icon: Icons.access_alarm_outlined,
                           label: 'Nota Parcial',
-                          activado: false),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas1.add(notas1.elementAt(0) + notas1.elementAt(1));
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesOne: notas1);
-                      },
-                    )),
+                          activado: false,
+                        ),
+                        readOnly: true,
+                      ),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 TextFormField(
-                  initialValue: estudianteNota.commentOne,
+                  initialValue: provider.notes.commentOne,
                   decoration: CustomInputs.formNotasInputDecoration(
                       hint: 'Comentario 1er Trimestre',
                       icon: Icons.access_alarm_outlined,
                       label: 'Comentario 1er Trimestre',
                       activado: true),
                   onChanged: (value) {
-                    userFormProvider.copyEstudianteNotaWith(commentOne: value);
+                    provider.notes.commentOne = value;
                   },
                 ),
               ]),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Notas del Segundo Trimestre',
-                style: CustomLabels.h3,
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              // END PRIMER TRIMESTRE
+
+              // INI SEGUNDO TRIMESTRE
+              SizedBox(height: 20),
+              Text('Notas del Segundo Trimestre', style: CustomLabels.h3),
+              SizedBox(height: 20),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                         child: TextFormField(
-                      initialValue: estudianteNota.notesTwo[0].toString(),
+                      initialValue: provider.notes.notesTwo[0].toString(),
                       decoration: CustomInputs.formNotasInputDecoration(
                           hint: 'Preliminar',
                           icon: Icons.access_alarm_outlined,
@@ -225,194 +223,172 @@ class _UserViewForm extends StatelessWidget {
                           activado: true),
                       onChanged: (value) {
                         double nota = double.parse(value);
-                        notas2.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesTwo: notas2);
+                        provider.notes.notesTwo[0] = nota;
+                        // provider.updateUI();
                       },
                     )),
-                    Flexible(
-                      child: SizedBox(
-                        width: 10,
-                      ),
-                    ),
+                    Flexible(child: SizedBox(width: 10)),
                     Expanded(
                         child: TextFormField(
-                      initialValue: estudianteNota.notesTwo[1].toString(),
+                      initialValue: provider.notes.notesTwo[1].toString(),
                       decoration: CustomInputs.formNotasInputDecoration(
-                          hint: 'Extamen Final',
+                          hint: 'Examen Final',
                           icon: Icons.access_alarm_outlined,
                           label: 'Examen Final',
                           activado: true),
                       onChanged: (value) {
                         double nota = double.parse(value);
-                        notas2.add(nota);
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesTwo: notas2);
+                        provider.notes.notesTwo[1] = nota;
+                        // provider.updateUI();
                       },
                     )),
-                    Flexible(
-                      child: SizedBox(
-                        width: 10,
-                      ),
-                    ),
+                    Flexible(child: SizedBox(width: 10)),
                     Expanded(
                         child: TextFormField(
-                      initialValue: estudianteNota.notesTwo[2].toString(),
+                      initialValue: '${provider.notes.getNotaParcial2()}',
                       decoration: CustomInputs.formNotasInputDecoration(
-                          hint: 'Nota Parcial',
-                          icon: Icons.access_alarm_outlined,
-                          label: 'Nota Parcial',
-                          activado: false),
-                      onChanged: (value) {
-                        double nota = double.parse(value);
-                        notas2.add(notas2.elementAt(0) + notas2.elementAt(1));
-                        userFormProvider.copyEstudianteNotaWith(
-                            notesTwo: notas2);
-                      },
+                        hint: 'Nota Parcial',
+                        icon: Icons.access_alarm_outlined,
+                        label: 'Nota Parcial',
+                        activado: false,
+                      ),
+                      readOnly: true,
                     )),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               TextFormField(
-                initialValue: estudianteNota.commentTwo,
+                initialValue: provider.notes.commentTwo,
                 decoration: CustomInputs.formNotasInputDecoration(
                     hint: 'Comentario 2do Trimestre',
                     icon: Icons.access_alarm_outlined,
                     label: 'Comentario 2do Trimestre',
                     activado: true),
                 onChanged: (value) {
-                  userFormProvider.copyEstudianteNotaWith(commentTwo: value);
+                  provider.notes.commentTwo = value;
                 },
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Notas del Tercer Trimestre',
-                style: CustomLabels.h3,
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              // END SEGUNDO TRIMESTRE
+
+              // INI TERCER TRIMESTRE
+              SizedBox(height: 20),
+              Text('Notas del Tercer Trimestre', style: CustomLabels.h3),
+              SizedBox(height: 20),
               Container(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: TextFormField(
-                    initialValue: estudianteNota.notesThree[0].toString(),
-                    decoration: CustomInputs.formNotasInputDecoration(
-                        hint: 'Preliminar',
-                        icon: Icons.access_alarm_outlined,
-                        label: 'Preliminar',
-                        activado: true),
-                    onChanged: (value) {
-                      double nota = double.parse(value);
-                      notas3.add(nota);
-                      userFormProvider.copyEstudianteNotaWith(
-                          notesThree: notas3);
-                    },
-                  )),
-                  Flexible(
-                    child: SizedBox(
-                      width: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: TextFormField(
+                      initialValue: provider.notes.notesThree[0].toString(),
+                      decoration: CustomInputs.formNotasInputDecoration(
+                          hint: 'Preliminar',
+                          icon: Icons.access_alarm_outlined,
+                          label: 'Preliminar',
+                          activado: true),
+                      onChanged: (value) {
+                        double nota = double.parse(value);
+                        provider.notes.notesThree[0] = nota;
+                        // provider.updateUI();
+                      },
+                    )),
+                    Flexible(
+                      child: SizedBox(
+                        width: 10,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                      child: TextFormField(
-                    initialValue: estudianteNota.notesThree[1].toString(),
-                    decoration: CustomInputs.formNotasInputDecoration(
-                        hint: 'Examen Final',
-                        icon: Icons.access_alarm_outlined,
-                        label: 'Examen Final',
-                        activado: true),
-                    onChanged: (value) {
-                      double nota = double.parse(value);
-                      notas3.add(nota);
-                      userFormProvider.copyEstudianteNotaWith(
-                          notesThree: notas3);
-                    },
-                  )),
-                  Flexible(
-                    child: SizedBox(
-                      width: 10,
+                    Expanded(
+                        child: TextFormField(
+                      initialValue: provider.notes.notesThree[1].toString(),
+                      decoration: CustomInputs.formNotasInputDecoration(
+                          hint: 'Examen Final',
+                          icon: Icons.access_alarm_outlined,
+                          label: 'Examen Final',
+                          activado: true),
+                      onChanged: (value) {
+                        double nota = double.parse(value);
+                        provider.notes.notesThree[1] = nota;
+                        // provider.updateUI();
+                      },
+                    )),
+                    Flexible(
+                      child: SizedBox(
+                        width: 10,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                      child: TextFormField(
-                    initialValue: estudianteNota.notesThree[2].toString(),
-                    decoration: CustomInputs.formNotasInputDecoration(
+                    Expanded(
+                        child: TextFormField(
+                      initialValue: '${provider.notes.getNotaParcial3()}',
+                      decoration: CustomInputs.formNotasInputDecoration(
                         hint: 'Nota Parcial',
                         icon: Icons.access_alarm_outlined,
                         label: 'Nota Parcial',
-                        activado: false),
-                    onChanged: (value) {
-                      double nota = double.parse(value);
-                      notas3.add(notas3.elementAt(0) + notas3.elementAt(1));
-                      userFormProvider.copyEstudianteNotaWith(
-                          notesThree: notas3);
-                    },
-                  )),
-                ],
-              )),
-              SizedBox(
-                height: 35,
+                        activado: false,
+                      ),
+                      readOnly: true,
+                    )),
+                  ],
+                ),
               ),
+              SizedBox(height: 35),
               TextFormField(
-                initialValue: estudianteNota.commentThree,
+                initialValue: provider.notes.commentThree,
                 decoration: CustomInputs.formNotasInputDecoration(
                     hint: 'Comentario 3er Trimestre',
                     icon: Icons.access_alarm_outlined,
                     label: 'Comentario 3er Trimestre',
                     activado: true),
                 onChanged: (value) {
-                  userFormProvider.copyEstudianteNotaWith(commentThree: value);
+                  provider.notes.commentThree = value;
                 },
               ),
-              SizedBox(
-                height: 35,
-              ),
+              // END TERCER TRIMESTRE
+
+              SizedBox(height: 35),
               Text(
-                // esto debe modificarse del promedio de las notas finals de cada trimestre
-                'Nota Final: 51',
+                // TODO: VERIFICAR ESTA OPERACION
+                'Nota Final: ${provider.notes.getNotaFinal().toStringAsFixed(2)}',
                 style: CustomLabels.h3,
               ),
-              SizedBox(
-                height: 20,
+              SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () {
+                  provider.updateUI();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.brown[900]),
+                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                ),
+                label: Text('calcular'),
+                icon: Icon(Icons.update, size: 20),
               ),
+              SizedBox(height: 20),
               ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 100),
+                constraints: BoxConstraints(maxWidth: 110),
                 child: ElevatedButton(
-                    onPressed: () async {
-                      // Guardar la nota escrita
-                      // AQUI SE DEBE CREAR LA NOTA SOLO SI ES PRIMERA VEZ LUEGO YA ACTUALIZAR
-                      // final saved = await userFormProvider.createNotaEstudiante();
-                      // if (saved) {
-                      //   NotificationsService.showSnackbar(
-                      //       'Usuario Actualizado');
-                      //   Provider.of<UsersProvider>(context, listen: false)
-                      //       .refreshUser(user);
-                      //   // actualizar usuarios??
-                      // } else {
-                      //   NotificationsService.showSnackbarError(
-                      //       'No se pudo guardar');
-                      // }
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.brown[900]),
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.transparent)),
-                    child: Row(children: [
-                      Icon(
-                        Icons.save_outlined,
-                        size: 20,
-                      ),
+                  onPressed: () async {
+                    // Guardar la nota escrita
+                    // AQUI SE DEBE CREAR LA NOTA SOLO SI ES PRIMERA VEZ LUEGO YA ACTUALIZAR
+                    final saved = await provider.updateNota();
+                    if (saved) {
+                      NotificationsService.showSnackbar('Usuario Actualizado');
+                    } else {
+                      NotificationsService.showSnackbarError('Error!');
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.brown[900]),
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.save_outlined, size: 20),
                       Text(' Guardar')
-                    ])),
+                    ],
+                  ),
+                ),
               )
             ],
           ),

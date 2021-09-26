@@ -20,7 +20,7 @@ class _UsersViewState extends State<UsersView> {
   @override
   Widget build(BuildContext context) {
     final usersProvider = Provider.of<UsersProvider>(context);
-    usersProvider.setCurso(widget.curso);
+    // usersProvider.setCurso(widget.curso);
     print(widget.curso + " desde users ahhh");
     usersProvider.getPaginatedUsersbyCurso(widget.curso);
     final usersDatSource =
