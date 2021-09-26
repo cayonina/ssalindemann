@@ -30,6 +30,8 @@ class Flurorouter {
   static String calificacionesRoute = '/dashboard/calificaciones/:uid';
   static String tablaNotasRoute = '/dashboard/tablanotas/:uid';
   static String notasRoute = '/dashboard/notas/:uid/:materia/:idNota';
+  static String boletinRoute =
+      '/dashboard/calificaciones/:uid/:curso/:materia/:idNota';
   static String perfilRoute = '/dashboard/perfil/:uid';
 
   static String aboutRoute = '/about';
@@ -77,6 +79,9 @@ class Flurorouter {
         transitionType: TransitionType.fadeIn);
     router.define(notasRoute,
         handler: DashboardHandlers.notas,
+        transitionType: TransitionType.fadeIn);
+    router.define(boletinRoute,
+        handler: DashboardHandlers.boletin,
         transitionType: TransitionType.fadeIn);
 
     router.define(perfilRoute,

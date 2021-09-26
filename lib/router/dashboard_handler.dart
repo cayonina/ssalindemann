@@ -14,6 +14,7 @@ import 'package:ssalindemann/ui/views/nuevo_user_view.dart';
 import 'package:ssalindemann/ui/views/perfil_view.dart';
 import 'package:ssalindemann/ui/views/prof_view.dart';
 import 'package:ssalindemann/ui/views/profesores_view.dart';
+import 'package:ssalindemann/ui/views/tabla_estudiantes_boletin_view.dart';
 import 'package:ssalindemann/ui/views/tabla_notas_view.dart';
 import 'package:ssalindemann/ui/views/tabla_profesores_view.dart';
 import 'package:ssalindemann/ui/views/user_view.dart';
@@ -71,6 +72,25 @@ class DashboardHandlers {
       if (params['uid']?.first != null) {
         return NotasView(
           uidEstudiante: params['uid']!.first,
+          nombreMateria: params['materia']!.first,
+          idNota: params['idNota']!.first,
+        );
+      } else {
+        return CursosView();
+      }
+    }
+  });
+
+  static Handler boletin = new Handler(handlerFunc: (context, params) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrenPageUrl(Flurorouter.notasRoute);
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      print(params);
+      if (params['uid']?.first != null) {
+        return TablaEstudiantesBoletinView(
+          uidEstudiante: params['uid']!.first,
+          curso: params['curso']!.first,
           nombreMateria: params['materia']!.first,
           idNota: params['idNota']!.first,
         );

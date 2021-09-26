@@ -30,7 +30,7 @@ class CalificionesDataSource extends DataTableSource {
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(
-                      '/dashboard/cursos/${calificacion.curso}');
+                      '/dashboard/calificaciones/$uid/${calificacion.curso}/${calificacion.materia}/JxvBR91Tx6alR5gX7huE');
                 },
               ),
             ],

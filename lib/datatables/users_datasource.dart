@@ -77,15 +77,15 @@ class UsersDataSource extends DataTableSource {
                   showDialog(context: context, builder: (_) => dialog);
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.grade_outlined),
-                onPressed: () {
-                  // // todo navegar a una nueva pantalla con la información del usuario
-                  NavigationService.replaceTo('/dashboard/notas/${user.id}');
-                  // NavigationService.replaceTo(
-                  //     '/dashboard/notas/${user.id}/${nota.materia}/${nota.id}');
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.grade_outlined),
+              //   onPressed: () {
+              //     // // todo navegar a una nueva pantalla con la información del usuario
+              //     NavigationService.replaceTo('/dashboard/notas/${user.id}');
+              //     // NavigationService.replaceTo(
+              //     //     '/dashboard/notas/${user.id}/${nota.materia}/${nota.id}');
+              //   },
+              // ),
             ],
           ),
         ),
