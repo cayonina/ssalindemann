@@ -17,6 +17,8 @@ import 'package:ssalindemann/ui/layouts/auth/auth_layout.dart';
 import 'package:ssalindemann/ui/layouts/dashboard/dashboard_layout.dart';
 import 'package:ssalindemann/ui/layouts/splash/splash_layout.dart';
 
+import 'providers/estudiante_notas_provider.dart';
+
 void main() async {
   await LocalStorage.configurePrefs();
   LindemannApi.configureDio();
@@ -37,6 +39,8 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UsersProvider()),
         ChangeNotifierProvider(create: (_) => ProfesorProvider()),
         ChangeNotifierProvider(create: (_) => UserFormProvider()),
+        ChangeNotifierProvider(create: (_) => EstudianteNotasProvider()),
+        
       ],
       child: MyApp(),
     );

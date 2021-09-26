@@ -68,11 +68,11 @@ class DashboardHandlers {
         .setCurrenPageUrl(Flurorouter.notasRoute);
     if (authProvider.authStatus == AuthStatus.authenticated) {
       print(params);
-      print('==== HANDLER NOTAS ===== $params ===');
       if (params['uid']?.first != null) {
         return NotasView(
-          uid: params['uid']!.first,
-          materia: params['materia']!.first,
+          uidEstudiante: params['uid']!.first,
+          nombreMateria: params['materia']!.first,
+          idNota: params['idNota']!.first,
         );
       } else {
         return CursosView();

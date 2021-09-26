@@ -56,8 +56,8 @@ class EstudianteModel extends UserModel {
 class Notes {
   final String? id;
   final String? materia;
-  final String? commentOne, commentTwo, commentThree;
-  final double? totalNote;
+  String? commentOne, commentTwo, commentThree;
+  double? totalNote;
 
   final List<double> notesOne, notesTwo, notesThree;
 
@@ -96,4 +96,22 @@ class Notes {
         notesTwo: List.from(json['notas2'].map((value) => value / 1)),
         notesThree: List.from(json['notas3'].map((value) => value / 1)),
       );
+
+  double getNotaParcial1() => notesOne[0] + notesOne[1];
+  double getNotaParcial2() => notesTwo[0] + notesTwo[1];
+  double getNotaParcial3() => notesThree[0] + notesThree[1];
+
+  double getNotaFinal() =>
+      (getNotaParcial1() + getNotaParcial2() + getNotaParcial3()) / 3;
+
+      Map<String, dynamic> toJson() => {
+        'comentario1': commentOne,
+        'comentario2': commentTwo,
+        'comentario3': commentThree,
+        'materia': materia,
+        'notafinal': getNotaFinal(),
+        'notas1': notesOne,
+        'notas2': notesTwo,
+        'notas3': notesThree,
+      };
 }
