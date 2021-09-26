@@ -27,7 +27,7 @@ class NotasDataSource extends DataTableSource {
                 onPressed: () {
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(
-                      '/dashboard/notas/${uid}/${nota.materia}');
+                      '/dashboard/notas/${nota.id}/${nota.materia}');
                 },
               ),
             ],

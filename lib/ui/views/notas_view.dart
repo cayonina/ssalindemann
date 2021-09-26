@@ -18,11 +18,11 @@ import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 // PODRA VER LOS ESTUDIANTES PERO CON EL TEXTFORM  DESABILTADO
 class NotasView extends StatefulWidget {
   final String? uid;
-  final String? materia;
+  // final String? materia;
   const NotasView({
     Key? key,
     required this.uid,
-    this.materia,
+    // this.materia,
     // required this.uid
   }) : super(key: key);
 
@@ -40,11 +40,12 @@ class _NotasViewState extends State<NotasView> {
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
-
+    print(widget.uid! + 'ESTE ID ESTA OBTENIENDOOO');
     usersProvider.getPaginatedNotasbyId(widget.uid!).then((userDB) {
+      print(userDB);
+      userFormProvider.formKey = new GlobalKey<FormState>();
       if (userDB != null) {
         userFormProvider.estudianteNota = userDB;
-        userFormProvider.formKey = new GlobalKey<FormState>();
         setState(() {
           this.user = userDB;
         });
@@ -70,7 +71,7 @@ class _NotasViewState extends State<NotasView> {
         physics: ClampingScrollPhysics(),
         children: [
           Text(
-            'Calificacion materia ' + widget.materia!,
+            'Calificacion materia ',
             style: CustomLabels.h1,
           ),
           SizedBox(
@@ -108,7 +109,7 @@ class _UserViewForm extends StatelessWidget {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final estudianteNota = userFormProvider.estudianteNota ?? Notes.fromEmpty();
     return WhiteCard(
-        title: 'Boletin de Notas',
+        title: 'Boletin de Notas' + estudianteNota.materia!,
         child: Form(
           key: userFormProvider.formKey,
           autovalidateMode: AutovalidateMode.always,

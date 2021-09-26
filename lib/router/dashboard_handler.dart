@@ -72,7 +72,7 @@ class DashboardHandlers {
       if (params['uid']?.first != null) {
         return NotasView(
           uid: params['uid']!.first,
-          materia: params['materia']!.first,
+          // materia: params['materia']!.first,
         );
       } else {
         return CursosView();
