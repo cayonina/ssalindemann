@@ -37,91 +37,86 @@ class _TablaEstudiantesBoletinViewState
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((duration) {
-      final provider =
-          Provider.of<EstudianteNotasProvider>(context, listen: false);
-      provider.init(
-        idEstu: widget.uidEstudiante,
-        idNota: widget.idNota,
-      );
+      final usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      print(widget.curso + " desde tabla boletiun wahh ahhh");
+
+      usersProvider.getPaginatedUsersbyCurso(widget.curso);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final usersProvider = Provider.of<UsersProvider>(context);
-    final notasProvider =
-        Provider.of<EstudianteNotasProvider>(context, listen: false);
-    print(widget.curso + " desde tabla boletiun wahh ahhh");
+    final boletinDatSource = new BoletinDataSource(
+        usersProvider.users, context, widget.curso, widget.nombreMateria);
 
-    usersProvider.getPaginatedUsersbyCurso(widget.curso);
-    final boletinDatSource = new BoletinDataSource(usersProvider.users, context,
-        widget.curso, notasProvider.notes, widget.idNota);
+    return usersProvider.isLoading
+        ? Center(child: CircularProgressIndicator())
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: ListView(
+              physics: ClampingScrollPhysics(),
+              children: [
+                Text(
+                  'Estudiantes',
+                  style: CustomLabels.h1,
+                ),
+                Text(
+                  'Estudiantes ' + widget.curso,
+                  style: CustomLabels.h2,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                PaginatedDataTable(
+                  header: Container(),
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: ListView(
-        physics: ClampingScrollPhysics(),
-        children: [
-          Text(
-            'Estudiantes',
-            style: CustomLabels.h1,
-          ),
-          Text(
-            'Estudiantes ' + widget.curso,
-            style: CustomLabels.h2,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          PaginatedDataTable(
-            header: Container(),
-
-            sortAscending: usersProvider.ascending,
-            sortColumnIndex: usersProvider.sortColumnIndex,
-            actions: [
-              CustomIconButton(
-                  onPressed: () {
-                    // Navigator.pushNamed(context, Flurorouter.nuevouserRoute);
+                  sortAscending: usersProvider.ascending,
+                  sortColumnIndex: usersProvider.sortColumnIndex,
+                  actions: [
+                    CustomIconButton(
+                        onPressed: () {
+                          // Navigator.pushNamed(context, Flurorouter.nuevouserRoute);
+                        },
+                        text: 'Generar Reporte',
+                        icon: Icons.report_outlined),
+                  ],
+                  columns: [
+                    DataColumn(label: Text('Foto')),
+                    DataColumn(
+                        label: Text('Apellidos'),
+                        onSort: (colIndex, _) {
+                          usersProvider.sortColumnIndex = colIndex;
+                          usersProvider.sort<String>((user) => user.apellidos!);
+                        }),
+                    DataColumn(
+                        label: Text('Nombres'),
+                        onSort: (colIndex, _) {
+                          usersProvider.sortColumnIndex = colIndex;
+                          usersProvider.sort<String>((user) => user.nombres!);
+                        }),
+                    DataColumn(
+                        label: Text('Curso'),
+                        onSort: (colIndex, _) {
+                          usersProvider.sortColumnIndex = colIndex;
+                          usersProvider.sort<String>((user) => user.curso!);
+                        }),
+                    DataColumn(
+                        label: Text('Celulares'),
+                        onSort: (colIndex, _) {
+                          usersProvider.sortColumnIndex = colIndex;
+                          usersProvider.sort<String>((user) => user.celular!);
+                        }),
+                    DataColumn(label: Text('Acciones')),
+                  ],
+                  // source: usersDatSource,
+                  onPageChanged: (page) {
+                    print('page $page');
                   },
-                  text: 'Generar Reporte',
-                  icon: Icons.report_outlined),
-            ],
-            columns: [
-              DataColumn(label: Text('Foto')),
-              DataColumn(
-                  label: Text('Apellidos'),
-                  onSort: (colIndex, _) {
-                    usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.apellidos!);
-                  }),
-              DataColumn(
-                  label: Text('Nombres'),
-                  onSort: (colIndex, _) {
-                    usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.nombres!);
-                  }),
-              DataColumn(
-                  label: Text('Curso'),
-                  onSort: (colIndex, _) {
-                    usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.curso!);
-                  }),
-              DataColumn(
-                  label: Text('Celulares'),
-                  onSort: (colIndex, _) {
-                    usersProvider.sortColumnIndex = colIndex;
-                    usersProvider.sort<String>((user) => user.celular!);
-                  }),
-              DataColumn(label: Text('Acciones')),
-            ],
-            // source: usersDatSource,
-            onPageChanged: (page) {
-              print('page $page');
-            },
-            source: boletinDatSource,
-          )
-        ],
-      ),
-    );
+                  source: boletinDatSource,
+                )
+              ],
+            ),
+          );
   }
 }

@@ -20,13 +20,11 @@ import 'package:ssalindemann/ui/layouts/auth/widgets/custom_title.dart';
 class NotasView extends StatefulWidget {
   final String uidEstudiante;
   final String nombreMateria;
-  final String idNota;
 
   const NotasView({
     Key? key,
     required this.uidEstudiante,
     required this.nombreMateria,
-    required this.idNota,
   }) : super(key: key);
 
   @override
@@ -62,7 +60,7 @@ class _NotasViewState extends State<NotasView> {
           Provider.of<EstudianteNotasProvider>(context, listen: false);
       provider.init(
         idEstu: widget.uidEstudiante,
-        idNota: widget.idNota,
+        nombreMat: widget.nombreMateria,
       );
     });
   }
@@ -89,7 +87,7 @@ class _NotasViewState extends State<NotasView> {
               physics: ClampingScrollPhysics(),
               children: [
                 Text(
-                  'Calificacion materia idEst ${widget.uidEstudiante} mate ${widget.nombreMateria} idNota ${widget.idNota}',
+                  'Calificacion materia idEst ${widget.uidEstudiante} mate ${widget.nombreMateria}',
                   style: CustomLabels.h1,
                 ),
                 SizedBox(

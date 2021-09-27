@@ -74,18 +74,21 @@ class LindemannApi {
 
   static Future<Notes> httpGetNotaFromStudent({
     required String idStudent,
-    required String idNota,
+    required String nameSubject,
   }) async {
     final firebase =
         await FirebaseFirestore.instance.collection('usuarios').get();
     final typeUsersRef = firebase.docs.first.reference;
-    final document = await typeUsersRef
+    final snapshot = await typeUsersRef
         .collection('estudiante/$idStudent/notas')
-        .doc(idNota)
+        .where("materia", isEqualTo: nameSubject)
         .get();
 
-    final tmpJson = document.data();
-    tmpJson!['id'] = document.id;
+    final document = snapshot.docs.first;
+    final tmpJson = snapshot.docs.first.data();
+    tmpJson['id'] = document.id;
+
+    print('==== JSON RESPONSE GET NOTA FROM STUDENT ===== $tmpJson ===');
 
     return Notes.fromJson(tmpJson);
   }

@@ -29,7 +29,7 @@ class Flurorouter {
   static String horarioRoute = '/dashboard/horario';
   static String calificacionesRoute = '/dashboard/calificaciones/:uid';
   static String tablaNotasRoute = '/dashboard/tablanotas/:uid';
-  static String notasRoute = '/dashboard/notas/:uid/:materia/:idNota';
+  static String notasRoute = '/dashboard/notas/:uid/:materia';
   static String boletinRoute =
       '/dashboard/calificaciones/:uid/:curso/:materia/:idNota';
   static String perfilRoute = '/dashboard/perfil/:uid';

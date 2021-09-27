@@ -36,7 +36,7 @@ class UsersProvider extends ChangeNotifier {
   getPaginatedUsersbyCurso(String curso) async {
     // peticion http
     final resp = await LindemannApi.httpGetEstudianteByCurso(curso);
-    print(resp);
+    print('==== TOTAL ESTUDIANTES POR CURSO ===== ${resp.length} ===');
     this.users = [...resp];
     print(this.users.length);
     isLoading = false;

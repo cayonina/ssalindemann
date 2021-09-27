@@ -73,7 +73,6 @@ class DashboardHandlers {
         return NotasView(
           uidEstudiante: params['uid']!.first,
           nombreMateria: params['materia']!.first,
-          idNota: params['idNota']!.first,
         );
       } else {
         return CursosView();
@@ -84,7 +83,7 @@ class DashboardHandlers {
   static Handler boletin = new Handler(handlerFunc: (context, params) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
-        .setCurrenPageUrl(Flurorouter.notasRoute);
+        .setCurrenPageUrl(Flurorouter.boletinRoute);
     if (authProvider.authStatus == AuthStatus.authenticated) {
       print(params);
       if (params['uid']?.first != null) {

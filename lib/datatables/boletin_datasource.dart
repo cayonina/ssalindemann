@@ -9,13 +9,13 @@ class BoletinDataSource extends DataTableSource {
   final List<UserModel> users;
   final BuildContext context;
   final String curso;
-  final Notes notes;
-  final String uid;
-  BoletinDataSource(this.users, this.context, this.curso, this.notes, this.uid);
+  // final Notes notes;
+  final String materia;
+  BoletinDataSource(this.users, this.context, this.curso, this.materia);
   @override
   DataRow getRow(int index) {
     final UserModel user = users[index];
-    final Notes nota = notes;
+    // final Notes nota = notes;
     final image = (user.img == null)
         ? Image(
             image: AssetImage('no-image.jpg'),
@@ -38,6 +38,7 @@ class BoletinDataSource extends DataTableSource {
         DataCell(Text(user.apellidos!)),
         DataCell(Text(user.nombres!)),
         DataCell(Text(user.curso!)),
+        DataCell(Text(user.celular!)),
         DataCell(
           Row(
             children: [
@@ -47,7 +48,7 @@ class BoletinDataSource extends DataTableSource {
                   // // todo navegar a una nueva pantalla con las notas del usuario
                   // NavigationService.replaceTo('/dashboard/notas/${user.id}');
                   NavigationService.replaceTo(
-                      '/dashboard/notas/uid/materia/:idNota');
+                      '/dashboard/notas/${user.id}/$materia');
                 },
               ),
             ],

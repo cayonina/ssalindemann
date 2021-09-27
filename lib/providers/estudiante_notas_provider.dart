@@ -4,19 +4,17 @@ import 'package:ssalindemann/models/estudiante_model.dart';
 
 class EstudianteNotasProvider extends ChangeNotifier {
   late String idEstudiante;
-  late String idNota;
   late Notes notes;
 
   bool loading = true;
 
-  Future init({required String idEstu, required String idNota}) async {
+  Future init({required String idEstu, required String nombreMat}) async {
+    print('==== INIT PROVIDER ===== $idEstu, $nombreMat ===');
     this.idEstudiante = idEstu;
-    this.idNota = idNota;
-    print('==== INIT PROVIDER =====  ===');
 
     notes = await LindemannApi.httpGetNotaFromStudent(
       idStudent: idEstudiante,
-      idNota: idNota,
+      nameSubject: nombreMat,
     );
 
     loading = false;
@@ -27,7 +25,7 @@ class EstudianteNotasProvider extends ChangeNotifier {
     try {
       await LindemannApi.httpUpdateNotaFromStudent(
         idStudent: idEstudiante,
-        idNota: idNota,
+        idNota: notes.id!,
         note: notes,
       );
       return true;
