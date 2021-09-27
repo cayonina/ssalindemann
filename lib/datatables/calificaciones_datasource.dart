@@ -28,6 +28,10 @@ class CalificionesDataSource extends DataTableSource {
               IconButton(
                 icon: Icon(Icons.grade_outlined),
                 onPressed: () {
+                  print(uid);
+                  print(calificacion.curso);
+                  print(calificacion.materia);
+                  print("00000000000000000000000000000000");
                   // todo navegar a una nueva pantalla con la información del usuario
                   NavigationService.replaceTo(
                       '/dashboard/calificaciones/$uid/${calificacion.curso}/${calificacion.materia}/JxvBR91Tx6alR5gX7huE');

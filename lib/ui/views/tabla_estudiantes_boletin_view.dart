@@ -51,7 +51,8 @@ class _TablaEstudiantesBoletinViewState
     final usersProvider = Provider.of<UsersProvider>(context);
     final notasProvider =
         Provider.of<EstudianteNotasProvider>(context, listen: false);
-    print(widget.curso + " desde users ahhh");
+    print(widget.curso + " desde tabla boletiun wahh ahhh");
+
     usersProvider.getPaginatedUsersbyCurso(widget.curso);
     final boletinDatSource = new BoletinDataSource(usersProvider.users, context,
         widget.curso, notasProvider.notes, widget.idNota);

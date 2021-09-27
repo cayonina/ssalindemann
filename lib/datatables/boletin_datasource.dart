@@ -7,10 +7,10 @@ import 'package:ssalindemann/services/navigation_services.dart';
 
 class BoletinDataSource extends DataTableSource {
   final List<UserModel> users;
-  final Notes notes;
   final BuildContext context;
-  final String uid;
   final String curso;
+  final Notes notes;
+  final String uid;
   BoletinDataSource(this.users, this.context, this.curso, this.notes, this.uid);
   @override
   DataRow getRow(int index) {
@@ -44,10 +44,10 @@ class BoletinDataSource extends DataTableSource {
               IconButton(
                 icon: Icon(Icons.grade_outlined),
                 onPressed: () {
-                  // // todo navegar a una nueva pantalla con la información del usuario
+                  // // todo navegar a una nueva pantalla con las notas del usuario
                   // NavigationService.replaceTo('/dashboard/notas/${user.id}');
                   NavigationService.replaceTo(
-                      '/dashboard/calificaciones/:uid/:curso/:materia/:idNota');
+                      '/dashboard/notas/uid/materia/:idNota');
                 },
               ),
             ],
