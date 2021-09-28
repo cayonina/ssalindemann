@@ -221,6 +221,17 @@ class _UserViewForm extends StatelessWidget {
               ),
               TextFormField(
                 onChanged: (value) =>
+                    userFormProvider.copyUserWithCreate(curso: value),
+                decoration: CustomInputs.formInputDecoration(
+                    hint: 'Curso', label: 'Curso', icon: Icons.room_outlined),
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Ingrese el curso en el que se inscribira';
+                  return null;
+                },
+              ),
+              TextFormField(
+                onChanged: (value) =>
                     userFormProvider.copyUserWithCreate(direccion: value),
                 decoration: CustomInputs.formInputDecoration(
                     hint: 'Direccion de su casa',
@@ -235,18 +246,18 @@ class _UserViewForm extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              DropdownButton<String>(
-                items: <String>['1A', '1B', '1C', '1D'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {},
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              // DropdownButton<String>(
+              //   items: <String>['1A', '1B', '1C', '1D'].map((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: new Text(value),
+              //     );
+              //   }).toList(),
+              //   onChanged: (_) {},
+              // ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               TextFormField(
                 decoration: CustomInputs.formInputDecoration(
                     hint: 'CI',
@@ -262,6 +273,7 @@ class _UserViewForm extends StatelessWidget {
                     onPressed: () async {
                       // postear, actualizar usuario
                       userFormProvider.copyUserWithCreate(rol: "Estudiante");
+                      // userFormProvider.copyUserWithCreate(curso: "4E");
                       final saved = await userFormProvider.createUser();
                       if (saved) {
                         NotificationsService.showSnackbar('Usuario Creado');

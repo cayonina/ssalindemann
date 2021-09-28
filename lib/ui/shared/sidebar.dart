@@ -67,14 +67,14 @@ class Sidebar extends StatelessWidget {
                 '/dashboard/calificaciones/${user.id}'),
           ),
 
-          MenuItem(
-            isActive:
-                sideMenuProvider.currentPage == Flurorouter.tablaNotasRoute,
-            text: 'Notas',
-            icon: Icons.grade_outlined,
-            onPressed: () =>
-                NavigationService.replaceTo('/dashboard/tablanotas/${user.id}'),
-          ),
+          // MenuItem(
+          //   isActive:
+          //       sideMenuProvider.currentPage == Flurorouter.tablaNotasRoute,
+          //   text: 'Notas',
+          //   icon: Icons.grade_outlined,
+          //   onPressed: () =>
+          //       NavigationService.replaceTo('/dashboard/tablanotas/${user.id}'),
+          // ),
 
           MenuItem(
             text: 'Horarios',
