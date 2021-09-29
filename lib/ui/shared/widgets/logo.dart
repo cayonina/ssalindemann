@@ -20,7 +20,8 @@ class Logo extends StatelessWidget {
             width: 10,
           ),
           Text(
-            user.role!,
+            // user.role!,
+            'Admin',
             style: GoogleFonts.raleway(
                 fontSize: 20,
                 // fontWeight: FontWeight.bold,

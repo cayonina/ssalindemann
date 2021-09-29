@@ -37,52 +37,53 @@ class ProfesorDataSource extends DataTableSource {
         DataCell(Text(user.nombres!)),
         DataCell(Text(user.area!)),
         DataCell(Text(user.celular!)),
-        // DataCell(
-        //   Row(
-        //     children: [
-        //       IconButton(
-        //         icon: Icon(Icons.edit_outlined),
-        //         onPressed: () {
-        //           // todo navegar a una nueva pantalla con la información del usuario
-        //           NavigationService.replaceTo(
-        //               '/dashboard/profesor/${user.area}/${user.id}');
-        //         },
-        //       ),
-        //       IconButton(
-        //         icon: Icon(
-        //           Icons.delete_outlined,
-        //           color: Colors.red.withOpacity(0.8),
-        //         ),
-        //         onPressed: () {
-        //           // INTENTO DE RESTRINGIR LOS ROLES
-        //           if (user.role != 'Estudiante') {
-        //             final dialog = AlertDialog(
-        //               title: Text('¿Esta seguro de borrarlo?'),
-        //               content: Text('¿Borrar Definitivamente ${user.nombres}?'),
-        //               actions: [
-        //                 TextButton(
-        //                     onPressed: () {
-        //                       Navigator.of(context).pop();
-        //                     },
-        //                     child: Text('No')),
-        //                 TextButton(
-        //                     onPressed: () async {
-        //                       await Provider.of<ProfesorProvider>(context,
-        //                               listen: false)
-        //                           .deleteProfesor(user.id!);
-        //                       Navigator.of(context).pop();
-        //                     },
-        //                     child: Text('Si, borrar')),
-        //               ],
-        //             );
+        DataCell(Text(user.horario_atencion!)),
+        DataCell(
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.edit_outlined),
+                onPressed: () {
+                  // todo navegar a una nueva pantalla con la información del usuario
+                  NavigationService.replaceTo(
+                      '/dashboard/profesor/${user.area}/${user.id}');
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.delete_outlined,
+                  color: Colors.red.withOpacity(0.8),
+                ),
+                onPressed: () {
+                  // INTENTO DE RESTRINGIR LOS ROLES
+                  if (user.role != 'Estudiante') {
+                    final dialog = AlertDialog(
+                      title: Text('¿Esta seguro de borrarlo?'),
+                      content: Text('¿Borrar Definitivamente ${user.nombres}?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('No')),
+                        TextButton(
+                            onPressed: () async {
+                              await Provider.of<ProfesorProvider>(context,
+                                      listen: false)
+                                  .deleteProfesor(user.id!);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Si, borrar')),
+                      ],
+                    );
 
-        //             showDialog(context: context, builder: (_) => dialog);
-        //           }
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
+                    showDialog(context: context, builder: (_) => dialog);
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

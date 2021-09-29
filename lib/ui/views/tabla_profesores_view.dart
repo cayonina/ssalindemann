@@ -87,6 +87,13 @@ class _TablaProfesoresViewState extends State<TablaProfesoresView> {
                     profesorProvider.sortColumnIndex = colIndex;
                     profesorProvider.sort<String>((user) => user.celular!);
                   }),
+              DataColumn(
+                  label: Text('Atencion a Padres'),
+                  onSort: (colIndex, _) {
+                    profesorProvider.sortColumnIndex = colIndex;
+                    profesorProvider
+                        .sort<String>((user) => user.horario_atencion!);
+                  }),
               DataColumn(label: Text('Acciones')),
             ],
             // source: usersDatSource,
